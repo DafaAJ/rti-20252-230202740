@@ -61,25 +61,25 @@ Dalam DSR, artefak **bukan tujuan akhir** — ia adalah instrumen untuk menghasi
 ## Template A.1 — Research Mindset Self-Assessment
 
 ```
-Nama Peneliti    : ____________________
-Tanggal          : ____________________
+Nama Peneliti    : Dafa Afriza Julianto
+Tanggal          : 01/05/2026
 
 1. Ketika membaca klaim "metode X 95% akurat":
-   - Pertanyaan pertama saya: ____________________
-   - Data yang dibutuhkan untuk verifikasi: ____________________
+   - Pertanyaan pertama saya: Apakah akurasi tersebut dari data training atau testing?.
+   - Data yang dibutuhkan untuk verifikasi: Confusion matrix, precision, recall, dan distribusi kelas dataset.
 
 2. Posisi paradigma:
-   - Pendekatan: [ ] Positivis  [ ] Interpretivis  [ ] Design Science  [ ] Mixed
-   - Alasan: ____________________
+   - Pendekatan: [✓] Positivis  [ ] Interpretivis  [✓] Design Science  [ ] Mixed
+   - Alasan: Penelitian menggunakan eksperimen (uji model CNN) dan juga membangun model sebagai artefak.
 
 3. Identifikasi distorsi:
-   - Asumsi tersembunyi: ____________________
-   - Sumber bias potensial: ____________________
-   - Langkah mitigasi: ____________________
+   - Asumsi tersembunyi: Dataset seperti NSL-KDD dan UNSW-NB15 mewakili kondisi nyata.
+   - Sumber bias potensial: Class imbalance dan distribusi data tidak merata.
+   - Langkah mitigasi: Gunakan beberapa dataset dan analisis confusion matrix.
 
 4. Komitmen etika:
-   - Data yang tidak akan dimanipulasi: ____________________
-   - Batasan yang diakui sejak awal: ____________________
+   - Data yang tidak akan dimanipulasi: Seluruh hasil eksperimen termasuk yang performanya rendah.
+   - Batasan yang diakui sejak awal: Dataset memiliki keterbatasan distribusi dan representasi.
 ```
 
 ---
@@ -93,23 +93,25 @@ Pilih satu paper riset di bidang TI yang mengklaim "metode X meningkatkan perfor
 > **Contoh domain TI:** "Deteksi anomali lalu-lintas jaringan menggunakan CNN — akurasi meningkat 94% vs baseline SVM 87%." Distorsi potensial: apakah dataset normal/anomali seimbang? Apakah hanya diuji pada satu vendor traffic?
 
 **Paper yang dipilih:**
-> Judul: _______________________________________________
-> Penulis (Tahun): ______________________________________
-> Sumber/Link DOI: _____________________________________
+> Judul: A Convolutional Neural Network for Improved Anomaly-Based Network Intrusion Detection  
+> Penulis (Tahun): Isra Al-Turaiki &  Najwa Altwaijry (2021)  
+> Sumber/Link DOI: https://doi.org/10.1089/big.2020.0263
 
 | Tahap | Apa yang Dilakukan | Potensi Distorsi |
 |-------|-------------------|-----------------|
-| Reality → Data | *Contoh: Kumpulkan log server 30 hari* | *Contoh: Hanya ambil jam sibuk* |
-| Data → Processing | | |
-| Processing → Analysis | | |
-| Analysis → Inference | | |
-| Inference → Knowledge | | |
+| Reality → Data | Menggunakan dataset NSL-KDD dan UNSW-NB15 | NSL-KDD adalah dataset lama, tidak sepenuhnya mencerminkan kondisi modern |
+| Data → Processing | Feature engineering dan preprocessing | Transformasi fitur bisa menghilangkan informasi penting |
+| Processing → Analysis | Training CNN (BCNN, MCNN) | Model bisa bias terhadap kelas dominan |
+| Analysis → Inference | Evaluasi dengan accuracy, precision, recall | Performa multiclass lebih rendah karena imbalance |
+| Inference → Knowledge | Menyimpulkan model lebih unggul dari metode lain | Generalisasi terbatas karena dataset tertentu |
 
-**Distorsi paling besar di tahap:** ________________________
+**Distorsi paling besar di tahap:** Reality → Data
 
 **Dua distorsi spesifik yang teridentifikasi:**
-1. ___________________________________________________
-2. ___________________________________________________
+1. Class imbalance pada dataset  
+   Contoh: kelas U2R hanya 0.04% sedangkan kelas lain jauh lebih besar
+2. Bias prediksi model ke kelas tertentu  
+   Confusion matrix menunjukkan model sering hanya mengenali beberapa kelas dominan
 
 ---
 
@@ -119,36 +121,35 @@ Skenario: Seorang peneliti menemukan bahwa jika 3 data point outlier dihapus, ha
 
 | Perspektif | Analisis |
 |------------|---------|
-| Kejujuran ilmiah | *Contoh: Laporkan kedua versi (dengan dan tanpa outlier)* |
-| Transparansi | |
-| Peer review | |
+| Kejujuran ilmiah | Hasil dengan dan tanpa outlier harus dilaporkan |
+| Transparansi | Harus dijelaskan apakah outlier adalah error atau bagian dari data |
+| Peer review | Reviewer akan mencurigai manipulasi jika outlier dihapus tanpa alasan |
 
 **Keputusan akhir dan justifikasi:**
-> ___________________________________________________
+> Outlier tidak boleh dihapus tanpa alasan kuat. Kedua hasil harus tetap ditampilkan agar penelitian transparan dan dapat direplikasi. Ini penting untuk menjaga validitas dan integritas ilmiah.  
 
 ---
 
 ## Latihan 3 — Posisi Paradigma
 
-**Topik riset:** ________________________________________
+**Topik riset:** Deteksi anomali jaringan menggunakan CNN
 
 > **Skala 1–5:** 1 = tidak sesuai sama sekali dengan topik ini, 5 = sangat sesuai dan dominan digunakan pada riset bertopik serupa.
 
 | Kriteria | Positivis | Interpretivis | Design Science |
 |----------|-----------|---------------|----------------|
-| Kesesuaian dengan topik (1–5) | *Contoh: 4 — topik kuantitatif, cocok uji hipotesis* | *Contoh: 2 — topik tidak studi makna/konteks* | *Contoh: 5 — membangun artefak untuk uji klaim* |
-| Jenis data yang dikumpulkan | *Metrik numerik, log eksperimen* | *Wawancara, observasi kualitatif* | *Hasil uji artefak, komparasi kinerja* |
-| Limitasi paradigma | | | |
+| Kesesuaian dengan topik (1–5) | 5 — berbasis eksperimen dan metrik | 1 — tidak fokus pada makna | 5 — membangun model CNN |
+| Jenis data yang dikumpulkan | Accuracy, precision, recall, confusion matrix | Wawancara | Hasil performa model |
+| Limitasi paradigma | Tidak menangkap konteks dunia nyata | Subjektif | Bergantung pada kualitas dataset |
 
-**Paradigma yang dipilih:** _____________________________
-**Alasan:** ____________________________________________
+**Paradigma yang dipilih:** Positivis + Design Science Research
+**Alasan:** Penelitian menguji performa model secara kuantitatif dan membangun sistem CNN sebagai artefak untuk membuktikan peningkatan performa.
 
 ---
 
 ## Refleksi
 
-> Sebelum membaca materi ini, apakah pernah mempertanyakan klaim "95% akurat"? Setelah memahami rantai distorsi, pertanyaan apa yang sekarang akan diajukan saat membaca paper?
+> Sebelum membaca materi ini, apakah pernah mempertanyakan klaim "95% akurat"? Setelah memahami rantai distorsi, pertanyaan apa yang sekarang akan diajukan saat membaca paper?  
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+> Sebelum mempelajari materi ini, saya cenderung langsung percaya pada angka akurasi tinggi. Namun setelah memahami adanya distorsi, saya menyadari bahwa akurasi saja tidak cukup. Saya akan mempertanyakan apakah data seimbang, bagaimana distribusi kelas, dan apakah model benar-benar mampu mengenali semua kategori, bukan hanya sebagian. Saya juga akan melihat confusion matrix untuk memahami performa sebenarnya.  
