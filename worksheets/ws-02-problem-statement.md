@@ -67,33 +67,33 @@ Masalah riset yang layak harus memenuhi 5 kriteria:
 PROBLEM STATEMENT BUILDER
 
 Domain & Konteks
-  Domain   : ____________________
-  Konteks  : ____________________
+  Domain   : Cyber Security & Machine Learning
+  Konteks  : Sistem deteksi intrusi jaringan berbasis CNN
 
 System Context
-  Input       : ____________________
-  Process     : ____________________
-  Output      : ____________________
-  Outcome     : ____________________
-  Constraints : ____________________
-  Stakeholders: ____________________
+  Input       : Data trafik jaringan
+  Process     : Analisis dan klasifikasi trafik menggunakan CNN
+  Output      : Prediksi trafik normal atau serangan
+  Outcome     : Membantu mendeteksi serangan jaringan lebih cepat
+  Constraints : Dataset tidak seimbang dan kebutuhan komputasi tinggi
+  Stakeholders: Administrator jaringan, pengguna sistem, peneliti keamanan siber
 
 Fenomena → Problem
-  Fenomena yang diamati             : ____________________
-  Gejala (symptom) yang terukur     : ____________________
-  Masalah yang didiagnosis          : ____________________
-  Masalah riset (researchable)      : ____________________
-  Variabel yang terukur             : ____________________
+  Fenomena yang diamati             : Serangan jaringan semakin kompleks dan sulit dideteksi
+  Gejala (symptom) yang terukur     : Tingginya false positive dan false negative pada IDS tradisional
+  Masalah yang didiagnosis          : Metode tradisional kurang efektif mengenali pola serangan modern
+  Masalah riset (researchable)      : Belum diketahui seberapa efektif CNN dalam meningkatkan performa deteksi intrusi jaringan dibanding metode tradisional
+  Variabel yang terukur             : Accuracy, precision, recall, F1-score, false positive rate
 
 Problem Quality Check
-  [ ] Clarity — Apakah satu orang membaca akan paham?
-  [ ] Measurability — Apakah ada metrik kuantitatif?
-  [ ] Relevance — Apakah penting untuk domain?
-  [ ] Testability — Apakah bisa gagal?
-  [ ] Impact — Apakah ada kontribusi jika terjawab?
+  [✓] Clarity — Apakah satu orang membaca akan paham?
+  [✓] Measurability — Apakah ada metrik kuantitatif?
+  [✓] Relevance — Apakah penting untuk domain?
+  [✓] Testability — Apakah bisa gagal?
+  [✓] Impact — Apakah ada kontribusi jika terjawab?
 
 Problem Statement (1 paragraf):
-  ____________________
+  Sistem Intrusion Detection System (IDS) tradisional masih memiliki keterbatasan dalam mendeteksi pola serangan jaringan modern sehingga menghasilkan false positive dan false negative yang cukup tinggi. Permasalahan ini menunjukkan perlunya metode yang mampu mengenali pola trafik jaringan secara lebih efektif. Oleh karena itu, penelitian ini bertujuan untuk menguji efektivitas metode Convolutional Neural Network (CNN) dalam mendeteksi intrusi jaringan berdasarkan data trafik dengan menggunakan metrik accuracy, precision, recall, F1-score, dan false positive rate.
 ```
 
 ---
@@ -102,17 +102,17 @@ Problem Statement (1 paragraf):
 
 Pilih satu topik di bidang TI yang diminati. Transformasikan melalui 5 tahap Problem Formation Model.
 
-**Topik awal:** ________________________________________
+**Topik awal:** Deteksi intrusi jaringan menggunakan CNN
 
 | Tahap | Hasil |
 |-------|-------|
-| Reality | *Contoh: Aplikasi e-commerce sering ditinggalkan saat checkout* |
-| Observed Issue (Symptom) | *Contoh: Bounce rate checkout 68%* |
-| Diagnosed Problem (Root Cause) | |
-| Researchable Problem | |
-| Measurable Variable | |
+| Reality | Banyak serangan jaringan sulit dideteksi |
+| Observed Issue (Symptom) | IDS tradisional menghasilkan false positive tinggi |
+| Diagnosed Problem (Root Cause) | Metode tradisional sulit mengenali pola serangan modern |
+| Researchable Problem | Belum diketahui efektivitas CNN dalam meningkatkan performa IDS |
+| Measurable Variable | Accuracy, precision, recall, F1-score |
 
-**Apakah terjebak solution-first thinking?** [ ] Ya / [ ] Tidak
+**Apakah terjebak solution-first thinking?** [ ] Ya / [✓] Tidak
 > Jika ya, kembali ke tahap mana? ________________________
 
 ---
@@ -123,14 +123,14 @@ Gambarkan konteks sistem dari masalah riset di Latihan 1.
 
 | Komponen | Deskripsi |
 |----------|----------|
-| Input | *Contoh: Request HTTP dari browser pengguna* |
-| Process | |
-| Output | |
-| Outcome | |
-| Constraints | |
-| Stakeholders | |
+| Input | Data trafik jaringan |
+| Process | Analisis dan klasifikasi menggunakan CNN |
+| Output | Prediksi normal atau serangan |
+| Outcome | Meningkatkan efektivitas deteksi intrusi |
+| Constraints | Dataset imbalance dan kebutuhan resource tinggi |
+| Stakeholders | Administrator jaringan dan pengguna sistem |
 
-**Komponen mana yang paling relevan dengan masalah riset?** _______________
+**Komponen mana yang paling relevan dengan masalah riset?** Process (analisis dan klasifikasi menggunakan CNN)
 
 ---
 
@@ -140,17 +140,16 @@ Evaluasi problem statement yang sudah dibuat menggunakan 5 kriteria.
 
 | Kriteria | Skor (1-5) | Justifikasi |
 |----------|-----------|-------------|
-| Clarity | *Contoh: 4 — cukup jelas tapi perlu spesifikasi dataset* | |
-| Measurability | | |
-| Relevance | | |
-| Testability | | |
-| Impact | | |
+| Clarity | 5 | Problem statement jelas dan spesifik |
+| Measurability | 5 | Menggunakan metrik evaluasi yang terukur |
+| Relevance | 5 | Penting dalam keamanan jaringan modern |
+| Testability | 5 | Dapat diuji menggunakan dataset IDS |
+| Impact | 4 | Berpotensi meningkatkan performa deteksi jaringan |
 
-**Skor total:** _____ / 25
+**Skor total:** 24 / 25
 
 **Problem statement versi final (1 paragraf):**
-> ___________________________________________________
-> ___________________________________________________
+> Sistem Intrusion Detection System (IDS) tradisional masih memiliki keterbatasan dalam mendeteksi pola serangan jaringan modern sehingga menghasilkan false positive dan false negative yang cukup tinggi. Oleh karena itu, penelitian ini dilakukan untuk menguji efektivitas metode Convolutional Neural Network (CNN) dalam mendeteksi intrusi jaringan berdasarkan data trafik dengan menggunakan accuracy, precision, recall, dan F1-score sebagai indikator performa model.
 
 ---
 
@@ -159,5 +158,4 @@ Evaluasi problem statement yang sudah dibuat menggunakan 5 kriteria.
 > Bandingkan "masalah" yang biasa ditemui saat coding (bug, error) dengan masalah riset. Apa perbedaan fundamental dalam cara mendefinisikan dan mendekati keduanya?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+> Masalah saat coding biasanya berhubungan dengan bug, error, atau fitur yang tidak berjalan sehingga fokusnya adalah memperbaiki sistem. Sedangkan masalah riset berfokus pada pembuktian ilmiah terhadap suatu gap pengetahuan menggunakan metode yang terukur dan dapat diuji. Dalam riset, keberhasilan tidak hanya dilihat dari sistem yang berjalan, tetapi juga dari validitas hasil dan kontribusi pengetahuan yang dihasilkan.
