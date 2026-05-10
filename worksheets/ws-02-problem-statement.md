@@ -67,23 +67,23 @@ Masalah riset yang layak harus memenuhi 5 kriteria:
 PROBLEM STATEMENT BUILDER
 
 Domain & Konteks
-  Domain   : Cyber Security & Machine Learning
-  Konteks  : Sistem deteksi intrusi jaringan berbasis CNN
+  Domain   : Internet of Things (IoT)
+  Konteks  : Smart Room untuk kontrol suhu ruang kelas berbasis ESP32 dan DHT22
 
 System Context
-  Input       : Data trafik jaringan
-  Process     : Analisis dan klasifikasi trafik menggunakan CNN
-  Output      : Prediksi trafik normal atau serangan
-  Outcome     : Membantu mendeteksi serangan jaringan lebih cepat
-  Constraints : Dataset tidak seimbang dan kebutuhan komputasi tinggi
-  Stakeholders: Administrator jaringan, pengguna sistem, peneliti keamanan siber
+  Input       : Data suhu ruangan dari sensor DHT22
+  Process     : Monitoring suhu dan kontrol otomatis kipas/AC menggunakan ESP32
+  Output      : Kipas atau AC menyala otomatis sesuai suhu ruangan
+  Outcome     : Suhu ruang kelas lebih stabil dan penggunaan listrik lebih efisien
+  Constraints : Keterbatasan sensor, kestabilan koneksi, dan akurasi pembacaan suhu
+  Stakeholders: Siswa, guru, pengelola sekolah, dan pengguna ruangan
 
 Fenomena → Problem
-  Fenomena yang diamati             : Serangan jaringan semakin kompleks dan sulit dideteksi
-  Gejala (symptom) yang terukur     : Tingginya false positive dan false negative pada IDS tradisional
-  Masalah yang didiagnosis          : Metode tradisional kurang efektif mengenali pola serangan modern
-  Masalah riset (researchable)      : Belum diketahui seberapa efektif CNN dalam meningkatkan performa deteksi intrusi jaringan dibanding metode tradisional
-  Variabel yang terukur             : Accuracy, precision, recall, F1-score, false positive rate
+  Fenomena yang diamati             : Suhu ruang kelas sering terasa panas dan tidak stabil
+  Gejala (symptom) yang terukur     : Kipas atau AC sering terlambat dinyalakan atau dimatikan
+  Masalah yang didiagnosis          : Pengaturan pendingin ruangan masih dilakukan secara manual
+  Masalah riset (researchable)      : Belum diketahui efektivitas sistem smart room berbasis IoT dalam mengontrol suhu ruang kelas secara otomatis dan real-time
+  Variabel yang terukur             : Suhu ruangan, response time sistem, dan efisiensi penggunaan listrik
 
 Problem Quality Check
   [✓] Clarity — Apakah satu orang membaca akan paham?
@@ -93,7 +93,7 @@ Problem Quality Check
   [✓] Impact — Apakah ada kontribusi jika terjawab?
 
 Problem Statement (1 paragraf):
-  Sistem Intrusion Detection System (IDS) tradisional masih memiliki keterbatasan dalam mendeteksi pola serangan jaringan modern sehingga menghasilkan false positive dan false negative yang cukup tinggi. Permasalahan ini menunjukkan perlunya metode yang mampu mengenali pola trafik jaringan secara lebih efektif. Oleh karena itu, penelitian ini bertujuan untuk menguji efektivitas metode Convolutional Neural Network (CNN) dalam mendeteksi intrusi jaringan berdasarkan data trafik dengan menggunakan metrik accuracy, precision, recall, F1-score, dan false positive rate.
+  Pengaturan suhu ruang kelas yang masih dilakukan secara manual menyebabkan kondisi ruangan sering tidak stabil karena kipas atau AC terlambat dinyalakan maupun dimatikan. Selain itu, penggunaan pendingin ruangan yang tidak terkontrol dapat menyebabkan pemborosan energi listrik. Permasalahan ini terjadi karena belum adanya sistem monitoring dan kontrol suhu otomatis berbasis IoT yang mampu bekerja secara real-time. Oleh karena itu, penelitian ini bertujuan untuk menguji efektivitas sistem smart room berbasis ESP32 dan sensor DHT22 dalam mengontrol suhu ruang kelas secara otomatis guna meningkatkan kenyamanan ruangan dan efisiensi penggunaan listrik.
 ```
 
 ---
@@ -106,11 +106,11 @@ Pilih satu topik di bidang TI yang diminati. Transformasikan melalui 5 tahap Pro
 
 | Tahap | Hasil |
 |-------|-------|
-| Reality | Banyak serangan jaringan sulit dideteksi |
-| Observed Issue (Symptom) | IDS tradisional menghasilkan false positive tinggi |
-| Diagnosed Problem (Root Cause) | Metode tradisional sulit mengenali pola serangan modern |
-| Researchable Problem | Belum diketahui efektivitas CNN dalam meningkatkan performa IDS |
-| Measurable Variable | Accuracy, precision, recall, F1-score |
+| Reality | Suhu ruang kelas sering terasa panas dan tidak nyaman |
+| Observed Issue (Symptom) | Kipas atau AC sering terlambat dinyalakan |
+| Diagnosed Problem (Root Cause) | Pengaturan suhu ruangan masih dilakukan secara manual |
+| Researchable Problem | Belum diketahui efektivitas sistem smart room berbasis IoT dalam mengontrol suhu ruang kelas secara otomatis |
+| Measurable Variable | Suhu ruangan, response time, efisiensi listrik |
 
 **Apakah terjebak solution-first thinking?** [ ] Ya / [✓] Tidak
 > Jika ya, kembali ke tahap mana? ________________________
@@ -123,14 +123,14 @@ Gambarkan konteks sistem dari masalah riset di Latihan 1.
 
 | Komponen | Deskripsi |
 |----------|----------|
-| Input | Data trafik jaringan |
-| Process | Analisis dan klasifikasi menggunakan CNN |
-| Output | Prediksi normal atau serangan |
-| Outcome | Meningkatkan efektivitas deteksi intrusi |
-| Constraints | Dataset imbalance dan kebutuhan resource tinggi |
-| Stakeholders | Administrator jaringan dan pengguna sistem |
+| Input | Data suhu dari sensor DHT22 |
+| Process | ESP32 memproses data suhu dan mengontrol kipas/AC |
+| Output | Kipas atau AC aktif otomatis sesuai suhu |
+| Outcome | Ruangan lebih nyaman dan penggunaan listrik lebih efisien |
+| Constraints | Akurasi sensor dan kestabilan sistem IoT |
+| Stakeholders | Siswa, guru, dan pengelola sekolah |
 
-**Komponen mana yang paling relevan dengan masalah riset?** Process (analisis dan klasifikasi menggunakan CNN)
+**Komponen mana yang paling relevan dengan masalah riset?** Process (monitoring suhu dan kontrol otomatis menggunakan ESP32)
 
 ---
 
@@ -140,16 +140,16 @@ Evaluasi problem statement yang sudah dibuat menggunakan 5 kriteria.
 
 | Kriteria | Skor (1-5) | Justifikasi |
 |----------|-----------|-------------|
-| Clarity | 5 | Problem statement jelas dan spesifik |
-| Measurability | 5 | Menggunakan metrik evaluasi yang terukur |
-| Relevance | 5 | Penting dalam keamanan jaringan modern |
-| Testability | 5 | Dapat diuji menggunakan dataset IDS |
-| Impact | 4 | Berpotensi meningkatkan performa deteksi jaringan |
+| Clarity | 5 | Problem statement jelas dan mudah dipahami |
+| Measurability | 5 | Menggunakan variabel yang dapat diukur |
+| Relevance | 5 | Penting untuk kenyamanan dan efisiensi energi |
+| Testability | 5 | Sistem dapat diuji secara langsung |
+| Impact | 5 | Berpotensi meningkatkan kenyamanan dan efisiensi listrik |
 
-**Skor total:** 24 / 25
+**Skor total:** 25 / 25
 
 **Problem statement versi final (1 paragraf):**
-> Sistem Intrusion Detection System (IDS) tradisional masih memiliki keterbatasan dalam mendeteksi pola serangan jaringan modern sehingga menghasilkan false positive dan false negative yang cukup tinggi. Oleh karena itu, penelitian ini dilakukan untuk menguji efektivitas metode Convolutional Neural Network (CNN) dalam mendeteksi intrusi jaringan berdasarkan data trafik dengan menggunakan accuracy, precision, recall, dan F1-score sebagai indikator performa model.
+> Pengaturan suhu ruang kelas yang masih dilakukan secara manual menyebabkan kondisi ruangan sering tidak stabil karena kipas atau AC terlambat dinyalakan maupun dimatikan. Selain mengurangi kenyamanan belajar, kondisi tersebut juga menyebabkan penggunaan energi listrik menjadi kurang efisien. Oleh karena itu, penelitian ini dilakukan untuk menguji efektivitas sistem smart room berbasis ESP32 dan sensor DHT22 dalam melakukan monitoring dan kontrol suhu ruang kelas secara otomatis dan real-time.
 
 ---
 
@@ -158,4 +158,4 @@ Evaluasi problem statement yang sudah dibuat menggunakan 5 kriteria.
 > Bandingkan "masalah" yang biasa ditemui saat coding (bug, error) dengan masalah riset. Apa perbedaan fundamental dalam cara mendefinisikan dan mendekati keduanya?
 
 **Jawaban:**
-> Masalah saat coding biasanya berhubungan dengan bug, error, atau fitur yang tidak berjalan sehingga fokusnya adalah memperbaiki sistem. Sedangkan masalah riset berfokus pada pembuktian ilmiah terhadap suatu gap pengetahuan menggunakan metode yang terukur dan dapat diuji. Dalam riset, keberhasilan tidak hanya dilihat dari sistem yang berjalan, tetapi juga dari validitas hasil dan kontribusi pengetahuan yang dihasilkan.
+> Masalah saat coding biasanya berkaitan dengan error program atau fitur yang tidak berjalan sehingga fokus utamanya adalah memperbaiki sistem agar dapat berfungsi kembali. Sedangkan masalah riset berfokus pada identifikasi akar masalah dan pembuktian ilmiah terhadap suatu fenomena menggunakan metode yang terukur dan dapat diuji. Dalam riset, keberhasilan tidak hanya dilihat dari sistem yang berjalan, tetapi juga dari validitas hasil dan kontribusi pengetahuan yang dihasilkan.
