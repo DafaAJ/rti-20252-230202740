@@ -62,24 +62,24 @@ Dalam DSR, artefak **bukan tujuan akhir** — ia adalah instrumen untuk menghasi
 
 ```
 Nama Peneliti    : Dafa Afriza Julianto
-Tanggal          : 01/05/2026
+Tanggal          : 10/05/2026
 
 1. Ketika membaca klaim "metode X 95% akurat":
-   - Pertanyaan pertama saya: Apakah akurasi tersebut dari data training atau testing?.
-   - Data yang dibutuhkan untuk verifikasi: Confusion matrix, precision, recall, dan distribusi kelas dataset.
+   - Pertanyaan pertama saya: Bagaimana metode pengujian sensor dan sistem IoT dilakukan?.
+   - Data yang dibutuhkan untuk verifikasi: Data suhu, response time sistem, akurasi sensor, dan hasil monitoring suhu ruangan.
 
 2. Posisi paradigma:
    - Pendekatan: [✓] Positivis  [ ] Interpretivis  [✓] Design Science  [ ] Mixed
-   - Alasan: Penelitian menggunakan eksperimen (uji model CNN) dan juga membangun model sebagai artefak.
+   - Alasan: Penelitian menggunakan eksperimen sensor dan membangun prototype smart room berbasis ESP32 sebagai artefak penelitian.
 
 3. Identifikasi distorsi:
-   - Asumsi tersembunyi: Dataset seperti NSL-KDD dan UNSW-NB15 mewakili kondisi nyata.
-   - Sumber bias potensial: Class imbalance dan distribusi data tidak merata.
-   - Langkah mitigasi: Gunakan beberapa dataset dan analisis confusion matrix.
+   - Asumsi tersembunyi: Sensor DHT11/DHT22 selalu memberikan pembacaan suhu yang akurat.
+   - Sumber bias potensial: Posisi sensor, suhu lingkungan, dan delay pembacaan data.
+   - Langkah mitigasi: Melakukan kalibrasi sensor dan pengujian pada beberapa kondisi ruangan.
 
 4. Komitmen etika:
-   - Data yang tidak akan dimanipulasi: Seluruh hasil eksperimen termasuk yang performanya rendah.
-   - Batasan yang diakui sejak awal: Dataset memiliki keterbatasan distribusi dan representasi.
+   - Data yang tidak akan dimanipulasi: Seluruh hasil pembacaan sensor dan hasil pengujian sistem.
+   - Batasan yang diakui sejak awal: Pengujian hanya dilakukan pada ruang kelas tertentu.
 ```
 
 ---
@@ -93,25 +93,23 @@ Pilih satu paper riset di bidang TI yang mengklaim "metode X meningkatkan perfor
 > **Contoh domain TI:** "Deteksi anomali lalu-lintas jaringan menggunakan CNN — akurasi meningkat 94% vs baseline SVM 87%." Distorsi potensial: apakah dataset normal/anomali seimbang? Apakah hanya diuji pada satu vendor traffic?
 
 **Paper yang dipilih:**
-> Judul: A Convolutional Neural Network for Improved Anomaly-Based Network Intrusion Detection  
-> Penulis (Tahun): Isra Al-Turaiki &  Najwa Altwaijry (2021)  
-> Sumber/Link DOI: https://doi.org/10.1089/big.2020.0263
+> Judul: PERANCANGAN DAN IMPLEMENTASI KIPAS ANGIN OTOMATIS BERBASIS ESP32 DAN DHT11 UNTUK PENGENDALIAN SUHU RUANGAN  
+> Penulis (Tahun): Radhitya Mugi Pradana, Rico Pahlevi Siregar, Fauzan Ario Bagaskoro, Deni Eka Putra, dan Susilawati (2026)  
+> Sumber/Link DOI: https://doi.org/10.23960/jitet.v14i2.9074
 
 | Tahap | Apa yang Dilakukan | Potensi Distorsi |
 |-------|-------------------|-----------------|
-| Reality → Data | Menggunakan dataset NSL-KDD dan UNSW-NB15 | NSL-KDD adalah dataset lama, tidak sepenuhnya mencerminkan kondisi modern |
-| Data → Processing | Feature engineering dan preprocessing | Transformasi fitur bisa menghilangkan informasi penting |
-| Processing → Analysis | Training CNN (BCNN, MCNN) | Model bisa bias terhadap kelas dominan |
-| Analysis → Inference | Evaluasi dengan accuracy, precision, recall | Performa multiclass lebih rendah karena imbalance |
-| Inference → Knowledge | Menyimpulkan model lebih unggul dari metode lain | Generalisasi terbatas karena dataset tertentu |
+| Reality → Data | Sensor DHT11 membaca suhu ruangan | Sensor hanya dipasang pada satu titik ruangan |
+| Data → Processing | ESP32 memproses data suhu dan mengontrol kipas otomatis | Delay pembacaan sensor dapat memengaruhi respon sistem |
+| Processing → Analysis | Analisis performa sistem berdasarkan perubahan suhu | Pengujian dilakukan pada kondisi lingkungan terbatas |
+| Analysis → Inference | Menyimpulkan sistem mampu menjaga suhu ruangan | Belum dibandingkan dengan metode kontrol lain |
+| Inference → Knowledge | Sistem dianggap efektif untuk smart room | Belum diuji pada ukuran ruangan dan kondisi berbeda |
 
 **Distorsi paling besar di tahap:** Reality → Data
 
 **Dua distorsi spesifik yang teridentifikasi:**
-1. Class imbalance pada dataset  
-   Contoh: kelas U2R hanya 0.04% sedangkan kelas lain jauh lebih besar
-2. Bias prediksi model ke kelas tertentu  
-   Confusion matrix menunjukkan model sering hanya mengenali beberapa kelas dominan
+1. Sensor DHT11 hanya membaca suhu pada satu titik sehingga belum merepresentasikan keseluruhan kondisi ruangan.
+2. Pengujian sistem dilakukan pada lingkungan terbatas sehingga hasil belum tentu dapat digeneralisasi ke semua ruang kelas.
 
 ---
 
@@ -121,29 +119,29 @@ Skenario: Seorang peneliti menemukan bahwa jika 3 data point outlier dihapus, ha
 
 | Perspektif | Analisis |
 |------------|---------|
-| Kejujuran ilmiah | Hasil dengan dan tanpa outlier harus dilaporkan |
-| Transparansi | Harus dijelaskan apakah outlier adalah error atau bagian dari data |
-| Peer review | Reviewer akan mencurigai manipulasi jika outlier dihapus tanpa alasan |
+| Kejujuran ilmiah | Hasil dengan dan tanpa outlier harus tetap dilaporkan |
+| Transparansi | Harus dijelaskan apakah outlier merupakan error sensor atau bagian dari data normal |
+| Peer review | Reviewer dapat mencurigai manipulasi data jika outlier dihapus tanpa alasan ilmiah |
 
 **Keputusan akhir dan justifikasi:**
-> Outlier tidak boleh dihapus tanpa alasan kuat. Kedua hasil harus tetap ditampilkan agar penelitian transparan dan dapat direplikasi. Ini penting untuk menjaga validitas dan integritas ilmiah.  
+> Outlier tidak boleh dihapus tanpa alasan yang jelas dan dapat dipertanggungjawabkan. Peneliti harus menampilkan kedua hasil agar penelitian tetap transparan, valid, dan dapat direplikasi oleh peneliti lain.  
 
 ---
 
 ## Latihan 3 — Posisi Paradigma
 
-**Topik riset:** Deteksi anomali jaringan menggunakan CNN
+**Topik riset:** Rancang Bangun Smart Room Berbasis IoT untuk Kontrol Suhu Ruang Kelas Menggunakan ESP32 dan Sensor DHT22
 
 > **Skala 1–5:** 1 = tidak sesuai sama sekali dengan topik ini, 5 = sangat sesuai dan dominan digunakan pada riset bertopik serupa.
 
 | Kriteria | Positivis | Interpretivis | Design Science |
 |----------|-----------|---------------|----------------|
-| Kesesuaian dengan topik (1–5) | 5 — berbasis eksperimen dan metrik | 1 — tidak fokus pada makna | 5 — membangun model CNN |
-| Jenis data yang dikumpulkan | Accuracy, precision, recall, confusion matrix | Wawancara | Hasil performa model |
-| Limitasi paradigma | Tidak menangkap konteks dunia nyata | Subjektif | Bergantung pada kualitas dataset |
+| Kesesuaian dengan topik (1–5) | 5 — berbasis eksperimen dan data sensor | 1 — tidak fokus pada makna sosial | 5 — membangun prototype smart room |
+| Jenis data yang dikumpulkan | Data suhu, kelembapan, response time | Wawancara pengguna | Hasil performa prototype |
+| Limitasi paradigma | Tidak menangkap pengalaman pengguna secara mendalam | Bersifat subjektif | Bergantung pada kualitas sensor dan pengujian |
 
 **Paradigma yang dipilih:** Positivis + Design Science Research
-**Alasan:** Penelitian menguji performa model secara kuantitatif dan membangun sistem CNN sebagai artefak untuk membuktikan peningkatan performa.
+**Alasan:** Penelitian berfokus pada pembangunan prototype smart room berbasis IoT dan pengujian performa sistem menggunakan data sensor secara kuantitatif.
 
 ---
 
@@ -152,4 +150,4 @@ Skenario: Seorang peneliti menemukan bahwa jika 3 data point outlier dihapus, ha
 > Sebelum membaca materi ini, apakah pernah mempertanyakan klaim "95% akurat"? Setelah memahami rantai distorsi, pertanyaan apa yang sekarang akan diajukan saat membaca paper?  
 
 **Jawaban:**
-> Sebelum mempelajari materi ini, saya cenderung langsung percaya pada angka akurasi tinggi. Namun setelah memahami adanya distorsi, saya menyadari bahwa akurasi saja tidak cukup. Saya akan mempertanyakan apakah data seimbang, bagaimana distribusi kelas, dan apakah model benar-benar mampu mengenali semua kategori, bukan hanya sebagian. Saya juga akan melihat confusion matrix untuk memahami performa sebenarnya.  
+> Sebelum mempelajari materi ini, saya cenderung langsung percaya pada klaim performa sistem IoT. Setelah memahami adanya distorsi penelitian, saya menyadari bahwa hasil pengujian dapat dipengaruhi oleh posisi sensor, kondisi lingkungan, dan metode pengambilan data. Oleh karena itu, saya akan lebih kritis dalam melihat validitas data, metode pengujian, dan generalisasi hasil penelitian IoT.  
