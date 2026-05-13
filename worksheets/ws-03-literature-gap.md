@@ -74,15 +74,13 @@ Membandingkan deep learning 2024 dengan decision tree sederhana tanpa justifikas
 
 ## Template A.3 — Literature Mapping & Gap Identification
 
-```
 LITERATURE MAPPING
 
-Topik      : Sistem Pengendalian Suhu Ruangan Otomatis Berbasis IoT Menggunakan ESP32 dan DHT22
-Database   : Google Scholar dan ResearchGate
-Query      : ("IoT smart fan" OR "automatic fan control") AND ("ESP32" OR "DHT22") AND ("temperature monitoring")
-Tahun      : 2025–2026
-Hasil awal : 5 paper → Screening → 5 paper final
-```
+Topik      : Sistem Pengendalian Suhu Ruangan Otomatis Berbasis IoT Menggunakan ESP32 dan DHT22  
+Database   : Google Scholar dan ResearchGate  
+Query      : ("IoT smart fan" OR "automatic fan control") AND ("ESP32" OR "DHT22") AND ("temperature monitoring")  
+Tahun      : 2025–2026  
+Hasil awal : 5 paper → Screening → 5 paper final  
 
 Literature Matrix (concept-centric):
 
@@ -94,24 +92,22 @@ Literature Matrix (concept-centric):
 | Wulandari et al. | 2026 | Menggunakan ESP32, DHT22, Telegram Bot, dan Blynk untuk monitoring laboratorium | Data suhu, kelembapan, dan notifikasi Telegram | Sistem monitoring bekerja stabil dengan delay notifikasi sekitar 3,2 detik | Sistem hanya monitoring tanpa kontrol otomatis terhadap kipas atau AC |
 | Pradana et al. | 2026 | Menggunakan ESP32, DHT11, relay, LCD, dan Telegram Bot dengan metode hysteresis control | Data suhu, kelembapan, dan status kipas otomatis | Sistem mampu mengontrol kipas otomatis dengan respons cepat dan notifikasi real-time | Sensor DHT11 kurang akurat dan threshold suhu masih hardcoded |
 
-```
-Pola yang ditemukan:
-  Metode dominan     : Sebagian besar penelitian menggunakan ESP32 sebagai mikrokontroler utama dengan sensor DHT22 atau DHT11 serta metode kontrol otomatis berbasis threshold suhu.
-  Dataset umum       : Data yang digunakan berupa suhu ruangan, kelembapan, status kipas atau AC, response time sistem, dan data monitoring IoT secara real-time.
-  Limitasi berulang  : Kontrol sistem masih sederhana berbasis ON/OFF, ketergantungan pada koneksi Wi-Fi, pengujian masih dalam skala prototipe, dan efisiensi energi belum diuji secara mendalam.
+Pola yang ditemukan:  
+  Metode dominan     : Sebagian besar penelitian menggunakan ESP32 sebagai mikrokontroler utama dengan sensor DHT22 atau DHT11 serta metode kontrol otomatis berbasis threshold suhu.  
+  Dataset umum       : Data yang digunakan berupa suhu ruangan, kelembapan, status kipas atau AC, response time sistem, dan data monitoring IoT secara real-time.  
+  Limitasi berulang  : Kontrol sistem masih sederhana berbasis ON/OFF, ketergantungan pada koneksi Wi-Fi, pengujian masih dalam skala prototipe, dan efisiensi energi belum diuji secara mendalam.  
 
 GAP IDENTIFICATION
 
-Gap 1: [Jenis: method]
-  Deskripsi    : Sebagian besar penelitian masih menggunakan metode kontrol ON/OFF sederhana dengan threshold suhu hardcoded.
-  Bukti        : Ditemukan pada penelitian Said et al. (2025), Roihan et al. (2025), dan Pradana et al. (2026).
-  Signifikansi : Sistem menjadi kurang adaptif terhadap perubahan suhu ruangan sehingga efisiensi energi belum optimal.
+Gap 1: [Jenis: method]  
+  Deskripsi    : Sebagian besar penelitian masih menggunakan metode kontrol ON/OFF sederhana dengan threshold suhu hardcoded.  
+  Bukti        : Ditemukan pada penelitian Said et al. (2025), Roihan et al. (2025), dan Pradana et al. (2026).  
+  Signifikansi : Sistem menjadi kurang adaptif terhadap perubahan suhu ruangan sehingga efisiensi energi belum optimal.  
 
-Gap 2: [Jenis: context]
-  Deskripsi    : Penelitian masih banyak diuji pada skala prototipe atau smart home dan belum banyak diterapkan pada ruang kelas nyata.
-  Bukti        : Ditemukan pada penelitian Roihan et al. (2025), Setia et al. (2025), dan Wulandari et al. (2026).
-  Signifikansi : Performa sistem pada lingkungan pendidikan nyata belum terbukti stabil dan efektif.
-```
+Gap 2: [Jenis: context]  
+  Deskripsi    : Penelitian masih banyak diuji pada skala prototipe atau smart home dan belum banyak diterapkan pada ruang kelas nyata.  
+  Bukti        : Ditemukan pada penelitian Roihan et al. (2025), Setia et al. (2025), dan Wulandari et al. (2026).  
+  Signifikansi : Performa sistem pada lingkungan pendidikan nyata belum terbukti stabil dan efektif.  
 
 Baseline Selection:
 | Baseline | Relevansi | Representatif | Source |
@@ -119,7 +115,7 @@ Baseline Selection:
 | Sistem kontrol kipas otomatis berbasis ESP32 dan DHT22 | Menggunakan ESP32 dan DHT22 untuk monitoring suhu serta kontrol kipas otomatis seperti penelitian yang dikembangkan | Banyak digunakan pada penelitian smart room dan IoT monitoring suhu | Roihan et al., 2025 |
 | Sistem kipas otomatis berbasis ESP32 dan Telegram Bot | Menggunakan Telegram Bot untuk monitoring dan kontrol suhu secara real-time | Merepresentasikan implementasi IoT monitoring sederhana berbasis Telegram | Pradana et al., 2026 |
 
-```
+
 ---
 
 ## Latihan 1 — Concept-Centric Literature Table
@@ -131,10 +127,9 @@ Gunakan topik riset dari WS-02. Cari minimal 5 paper relevan menggunakan databas
 > - Tulis query Boolean yang digunakan: contoh `("object detection" OR "image classification") AND ("edge computing") NOT ("medical")`. Dokumentasikan query secara eksplisit.
 > - Akses gratis: buka Google Scholar → cari judul paper → klik [PDF] jika tersedia, atau akses lewat campus VPN
 
-**Topik riset:** Sistem Pengendalian Suhu Ruangan Otomatis Berbasis IoT Menggunakan ESP32 dan Sensor DHT22
-**Query pencarian:** ("IoT smart fan" OR "automatic fan control") AND ("ESP32" OR "DHT22") AND ("temperature monitoring" OR "smart room")
-**Database:** Google Scholar dan ResearchGate
-```
+**Topik riset:** Sistem Pengendalian Suhu Ruangan Otomatis Berbasis IoT Menggunakan ESP32 dan Sensor DHT22  
+**Query pencarian:** ("IoT smart fan" OR "automatic fan control") AND ("ESP32" OR "DHT22") AND ("temperature monitoring" OR "smart room")  
+**Database:** Google Scholar dan ResearchGate  
 
 | # | Study | Tahun | Method | Dataset | Result | Limitasi |
 |---|-------|-------|--------|---------|--------|----------|
@@ -144,10 +139,8 @@ Gunakan topik riset dari WS-02. Cari minimal 5 paper relevan menggunakan databas
 | 4 | Wulandari et al. — Sistem Monitoring Suhu dan Kelembapan Berlebih di Ruangan Laboratorium Komputer Berbasis IoT Menggunakan ESP32 dan DHT22 | 2026 | ESP32, DHT22, Blynk, Telegram Bot, LED indikator | Data suhu dan kelembapan laboratorium, validasi sensor, data notifikasi Telegram dan monitoring Blynk | Sistem monitoring berjalan stabil dengan delay notifikasi ±3,2 detik dan akurasi sensor cukup baik | Sistem hanya monitoring tanpa kontrol otomatis kipas/AC, masih bergantung pada Wi-Fi dan listrik utama |
 | 5 | Pradana et al. — Perancangan dan Implementasi Sistem Kipas Angin Otomatis Berbasis ESP32 dan Sensor DHT11 untuk Pengendalian Suhu dan Kelembaban Ruangan | 2026 | ESP32, DHT11, relay, Telegram Bot, LCD 16x2, hysteresis control | Data suhu dan kelembapan real-time, status kipas, response time Telegram Bot, monitoring 14 hari | Sistem berhasil mengontrol kipas otomatis dengan response time cepat dan keberhasilan notifikasi >95% | Akurasi sensor DHT11 masih rendah, threshold suhu masih hardcoded, pengujian jangka panjang masih terbatas|
 
-```
-**Pola yang terlihat — Metode dominan:** Sebagian besar penelitian menggunakan ESP32 sebagai mikrokontroler utama, sensor DHT22 atau DHT11 untuk monitoring suhu dan kelembapan, serta metode kontrol otomatis berbasis threshold suhu dengan platform IoT seperti Blynk, MQTT, dan Telegram Bot.
-**Limitasi yang berulang:** Sebagian besar penelitian masih menggunakan kontrol ON/OFF sederhana, bergantung pada koneksi Wi-Fi, pengujian masih dalam skala prototipe, serta belum banyak melakukan evaluasi efisiensi energi dan pengujian pada lingkungan nyata seperti ruang kelas.
-```
+**Pola yang terlihat — Metode dominan:** Sebagian besar penelitian menggunakan ESP32 sebagai mikrokontroler utama, sensor DHT22 atau DHT11 untuk monitoring suhu dan kelembapan, serta metode kontrol otomatis berbasis threshold suhu dengan platform IoT seperti Blynk, MQTT, dan Telegram Bot.  
+**Limitasi yang berulang:** Sebagian besar penelitian masih menggunakan kontrol ON/OFF sederhana, bergantung pada koneksi Wi-Fi, pengujian masih dalam skala prototipe, serta belum banyak melakukan evaluasi efisiensi energi dan pengujian pada lingkungan nyata seperti ruang kelas.  
 
 ---
 
