@@ -77,29 +77,37 @@ Jika variabel tidak bisa di-map ke komponen apapun → arsitektur perlu didesain
 
 ## Template A.6 — Mapping RQ ke Arsitektur Sistem
 
-```
 SYSTEM-EXPERIMENT MAPPING
 
-Research Question: ____________________
+Research Question: Bagaimana kinerja sistem IoT berbasis ESP32 dan sensor DHT22 dalam menjaga kestabilan suhu ruang kelas berdasarkan metrik kestabilan suhu ruangan dibandingkan penggunaan kipas atau AC konvensional pada objek penelitian berupa ruang kelas?
 
 Variable → Component Mapping:
 | Variabel | Tipe | Komponen Sistem | Cara Manipulasi/Pengukuran |
 |----------|------|-----------------|---------------------------|
-|          | IV   |                 |                           |
-|          | DV   |                 |                           |
-|          | CV   |                 |                           |
+| Sistem kontrol suhu berbasis IoT | IV | ESP32, DHT22, relay | ESP32 membaca suhu dari DHT22 kemudian mengontrol kipas atau AC secara otomatis berdasarkan batas suhu |
+| Kestabilan suhu ruang kelas | DV | Sensor DHT22 dan Telegram Bot | Suhu ruangan diukur secara real-time dan dicatat dalam interval waktu tertentu |
+| Kondisi ruang kelas | CV | Lingkungan pengujian | Kondisi ruangan dijaga tetap selama eksperimen berlangsung |
 
 4 Prinsip Desain:
-  [ ] Traceability — Setiap komponen bisa ditelusuri ke variabel
-  [ ] Variable Isolation — IV bisa diubah tanpa mengubah CV
-  [ ] Measurement Integration — Pengukuran DV built-in
-  [ ] Reproducibility — Setup bisa direkonstruksi
+  [✓] Traceability — Setiap komponen bisa ditelusuri ke variabel  
+  [✓] Variable Isolation — IV bisa diubah tanpa mengubah CV  
+  [✓] Measurement Integration — Pengukuran DV built-in  
+  [✓] Reproducibility — Setup bisa direkonstruksi  
 
 Experimental Setup:
-  Input data     : ____________________
-  Parameter      : ____________________
-  Output format  : ____________________
-```
+  Input data     : Data suhu dan kelembapan ruang kelas secara real-time dari sensor DHT22  
+
+  Parameter      :  
+  - Batas suhu maksimum 30°C  
+  - Interval pembacaan sensor setiap 5 detik  
+  - Durasi pengujian ±1 jam  
+  - Jumlah pendingin dan posisi sensor dibuat tetap 
+
+  Output format  :  
+  - Data suhu real-time  
+  - Status kipas atau AC ON/OFF  
+  - Notifikasi Telegram Bot  
+  - Riwayat perubahan suhu ruangan  
 
 ---
 
@@ -107,15 +115,15 @@ Experimental Setup:
 
 Gunakan RQ dan variabel dari WS-05. Petakan ke komponen sistem.
 
-**RQ:** __________________________________________________
+**RQ:** Bagaimana kinerja sistem IoT berbasis ESP32 dan sensor DHT22 dalam menjaga kestabilan suhu ruang kelas berdasarkan metrik kestabilan suhu ruangan dibandingkan penggunaan kipas atau AC konvensional pada objek penelitian berupa ruang kelas?
 
 | Variabel | Tipe | Komponen Sistem | Cara Manipulasi / Pengukuran |
 |----------|------|-----------------|---------------------------|
-| *Contoh: Jenis model* | *IV* | *Modul classifier (swap RF ↔ CNN)* | *Ganti config `model_type`* |
-| | DV | | |
-| | CV | | |
+| Sistem kontrol suhu berbasis IoT | IV | ESP32, DHT22, relay | Mengubah kondisi pendingin otomatis berdasarkan suhu |
+| Kestabilan suhu ruang kelas | DV | Sensor DHT22 dan Telegram Bot | Mengukur perubahan suhu ruangan secara real-time |
+| Kondisi ruang kelas | CV | Lingkungan pengujian | Menjaga ukuran ruangan, posisi sensor, dan waktu pengujian tetap sama |
 
-**Apakah semua variabel bisa di-map?** [ ] Ya / [ ] Tidak
+**Apakah semua variabel bisa di-map?** [✓] Ya / [ ] Tidak
 > Jika tidak, komponen apa yang perlu ditambahkan? _________
 
 ---
@@ -126,14 +134,14 @@ Evaluasi desain sistem terhadap 4 prinsip.
 
 | Prinsip | Status | Bukti / Penjelasan |
 |---------|--------|-------------------|
-| Traceability | *Contoh: ✅ — setiap modul punya label variabel* | |
-| Modularity | | |
-| Controllability | | |
-| Measurability | | |
+| Traceability | ✓ | Setiap komponen sistem berhubungan langsung dengan variabel penelitian |
+| Modularity | ✓ | Sensor dan media monitoring dapat diganti tanpa mengubah sistem utama |
+| Controllability | ✓ | Parameter suhu dan interval pembacaan dapat diatur sesuai kebutuhan |
+| Measurability | ✓ | Sistem otomatis menghasilkan data suhu dan status pendingin |
 
-**Prinsip mana yang paling sulit dipenuhi?** _______________
+**Prinsip mana yang paling sulit dipenuhi?** Measurability
 **Strategi untuk mengatasinya:**
-> ___________________________________________________
+> Menggunakan monitoring Telegram Bot dan pencatatan data suhu secara berkala agar seluruh data pengujian tersimpan dengan baik dan mudah dianalisis.
 
 ---
 
@@ -146,14 +154,14 @@ Jika sistem memiliki 3 komponen utama, rencanakan ablation study.
 
 | Kondisi | Komponen A | Komponen B | Komponen C | Hasil yang Diharapkan |
 |---------|-----------|-----------|-----------|----------------------|
-| Full | *Contoh: ✅ CNN* | *Contoh: ✅ Temporal features* | *Contoh: ✅ Z-score norm* | *Baseline penuh* |
-| – A | ❌ (ganti RF) | ✅ | ✅ | |
-| – B | ✅ | ❌ (tanpa temporal) | ✅ | |
-| – C | ✅ | ✅ | ❌ (tanpa normalisasi) | |
+| Full | ✅ ESP32 | ✅ DHT22 | ✅ Telegram Bot | Sistem monitoring dan kontrol otomatis berjalan penuh |
+| – A | ❌ ESP32 | ✅ DHT22 | ✅ Telegram Bot | Sistem monitoring dan kontrol otomatis berjalan penuh |
+| – B | ✅ ESP32 | ❌ DHT22 | ✅ Telegram Bot | Sistem tidak dapat membaca suhu ruangan |
+| – C | ✅ ESP32 | ✅ DHT22 | ❌ Telegram Bot | Sistem tetap berjalan tetapi tanpa monitoring jarak jauh |
 
-**Komponen mana yang diprediksi paling berkontribusi?** _____
+**Komponen mana yang diprediksi paling berkontribusi?** Sensor DHT22
 **Mengapa?**
-> ___________________________________________________
+> Karena sensor DHT22 menjadi sumber utama data suhu yang digunakan ESP32 untuk menentukan kapan pendingin ruangan harus aktif atau nonaktif.
 
 ---
 
@@ -162,5 +170,4 @@ Jika sistem memiliki 3 komponen utama, rencanakan ablation study.
 > Apa risiko jika sistem dibangun seperti produk (monolitik, fitur lengkap) lalu baru dilakukan eksperimen? Mengapa arsitektur modular penting untuk riset?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+> Jika sistem dibangun seperti produk monolitik dengan terlalu banyak fitur, maka proses eksperimen akan sulit dilakukan karena perubahan satu komponen dapat memengaruhi komponen lain. Hal tersebut membuat pengujian variabel penelitian menjadi kurang terkontrol dan hasil eksperimen menjadi kurang valid. Arsitektur modular penting dalam penelitian karena memudahkan peneliti mengganti, menguji, atau membandingkan komponen tertentu tanpa harus mengubah keseluruhan sistem sehingga proses eksperimen lebih terstruktur, terukur, dan mudah direproduksi kembali.
