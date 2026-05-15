@@ -88,7 +88,7 @@ Variable → Component Mapping:
 | Kestabilan suhu ruang kelas | DV | Sensor DHT22 dan Telegram Bot | Suhu ruangan diukur secara real-time dan dicatat dalam interval waktu tertentu |
 | Kondisi ruang kelas | CV | Lingkungan pengujian | Kondisi ruangan dijaga tetap selama eksperimen berlangsung |
 
-4 Prinsip Desain:
+4 Prinsip Desain:  
   [✓] Traceability — Setiap komponen bisa ditelusuri ke variabel  
   [✓] Variable Isolation — IV bisa diubah tanpa mengubah CV  
   [✓] Measurement Integration — Pengukuran DV built-in  

@@ -65,40 +65,40 @@ Ancaman validitas harus diidentifikasi **sebelum** eksperimen dan mitigasinya di
 
 ## Template A.7 — Desain Eksperimen Lengkap
 
-```
 EXPERIMENT DESIGN
 
-Research Question : ____________________
-Hypothesis        : ____________________
-Tipe Eksperimen   : [ ] Comparison  [ ] Ablation  [ ] Parameter
+Research Question : Apakah sistem kontrol suhu otomatis berbasis ESP32 dan sensor DHT22 mampu menjaga kestabilan suhu ruang kelas lebih baik dibandingkan pengendalian kipas atau AC secara manual berdasarkan metrik kestabilan suhu dan waktu respons sistem?  
+Hypothesis        :  
+H₀ : Tidak terdapat perbedaan signifikan pada kestabilan suhu ruang kelas antara sistem otomatis berbasis ESP32 dan DHT22 dengan sistem pendingin manual.  
+H₁ : Sistem otomatis berbasis ESP32 dan DHT22 mampu menjaga kestabilan suhu ruang kelas lebih baik dibandingkan sistem pendingin manual.  
+Tipe Eksperimen   : [✓] Comparison  [ ] Ablation  [ ] Parameter
 
 Kondisi Eksperimen:
 | Kondisi | Deskripsi | IV Value | CV Settings |
 |---------|-----------|----------|-------------|
-| Control |           |          |             |
-| Treatment |         |          |             |
+| Control | Penggunaan kipas atau AC secara manual tanpa sistem IoT | Sistem manual | Ukuran ruang kelas tetap, posisi sensor tetap, jumlah pendingin tetap, waktu pengujian sama |
+| Treatment | Penggunaan sistem otomatis berbasis ESP32 dan DHT22 | Sistem IoT otomatis | Ukuran ruang kelas tetap, posisi sensor tetap, jumlah pendingin tetap, waktu pengujian sama |
 
 Fairness Checklist:
-  [ ] Dataset identik untuk semua kondisi
-  [ ] Preprocessing setara
-  [ ] Tuning effort setara
-  [ ] Environment identik
-  [ ] Metrik evaluasi sama
+  [✓] Dataset identik untuk semua kondisi
+  [✓] Preprocessing setara
+  [✓] Tuning effort setara
+  [✓] Environment identik
+  [✓] Metrik evaluasi sama
 
 Threat Analysis:
 | Threat Type | Ancaman Spesifik | Mitigasi |
 |-------------|-----------------|----------|
-| Internal    |                 |          |
-| External    |                 |          |
-| Construct   |                 |          |
-| Conclusion  |                 |          |
+| Internal    | Jumlah orang dalam kelas berubah-ubah sehingga memengaruhi suhu | Pengujian dilakukan pada jam dan kondisi kelas yang relatif sama |
+| External    | Hasil pengujian hanya dilakukan pada satu ruang kelas | Pengujian dilakukan beberapa kali pada kondisi suhu berbeda |
+| Construct   | Sensor DHT22 memiliki keterbatasan akurasi pembacaan | Kalibrasi sensor sebelum pengujian dan membandingkan hasil dengan termometer digital |
+| Conclusion  | Jumlah data pengujian terlalu sedikit | Pengambilan data dilakukan 5–10 kali agar hasil lebih konsisten |
 
 Statistical Plan:
-  Uji statistik   : ____________________
-  Justifikasi      : ____________________
-  Alpha            : ____________________
-  Effect size min  : ____________________
-```
+  Uji statistik   : Perbandingan rata-rata suhu dan waktu respons  
+  Justifikasi      : Digunakan untuk melihat perbedaan performa antara sistem manual dan sistem otomatis  
+  Alpha            : 0,05  
+  Effect size min  : Perbedaan suhu minimal 1–2°C  
 
 ---
 
@@ -106,13 +106,13 @@ Statistical Plan:
 
 Susun desain eksperimen berdasarkan RQ, variabel, dan sistem dari WS-04 sampai WS-06.
 
-**RQ:** __________________________________________________
-**Tipe eksperimen:** [ ] Comparison / [ ] Ablation / [ ] Parameter
+**RQ:** Apakah sistem kontrol suhu otomatis berbasis ESP32 dan sensor DHT22 mampu menjaga kestabilan suhu ruang kelas lebih baik dibandingkan pengendalian kipas atau AC secara manual?
+**Tipe eksperimen:** [✓] Comparison / [ ] Ablation / [ ] Parameter
 
 | Kondisi | Deskripsi | IV Value | CV Settings |
 |---------|-----------|----------|-------------|
-| Control | *Contoh: RF baseline dari literatur* | *RF* | *Dataset X, 80:20 split, seed 42* |
-| Treatment | | | |
+| Control | Pendingin ruangan dikontrol manual | Manual | Ruang kelas, posisi sensor, waktu pengujian, dan jumlah pendingin dibuat sama |
+| Treatment | Pendingin ruangan dikontrol otomatis oleh ESP32 dan DHT22 | Sistem otomatis IoT | Ruang kelas, posisi sensor, waktu pengujian, dan jumlah pendingin dibuat sama |
 
 ---
 
@@ -122,13 +122,13 @@ Evaluasi apakah desain eksperimen di Latihan 1 sudah fair.
 
 | Kriteria | Status | Detail |
 |----------|--------|--------|
-| Dataset identik | *Contoh: ✅ — sama-sama pakai CIC-MalMem-2022* | |
-| Preprocessing setara | | |
-| Tuning effort setara | | |
-| Environment identik | | |
-| Metrik evaluasi sama | | |
+| Dataset identik | ✓ | Data suhu diambil dari ruang kelas yang sama |
+| Preprocessing setara | ✓ | Data suhu dicatat dengan interval waktu yang sama |
+| Tuning effort setara | ✓ | Semua pengujian menggunakan konfigurasi sensor yang sama |
+| Environment identik | ✓ | Pengujian dilakukan pada kondisi ruang kelas yang sama |
+| Metrik evaluasi sama | ✓ | Menggunakan metrik kestabilan suhu dan waktu respons |
 
-**Ada yang tidak fair?** [ ] Ya / [ ] Tidak
+**Ada yang tidak fair?** [ ] Ya / [✓] Tidak
 > Jika ya, bagaimana cara memperbaikinya? ________________
 
 ---
@@ -139,14 +139,14 @@ Identifikasi ancaman validitas untuk desain eksperimen ini.
 
 | Threat Type | Ancaman Spesifik | Mitigasi |
 |-------------|-----------------|----------|
-| Internal | *Contoh: Data leakage antara train-test* | *Contoh: Gunakan stratified split, validasi tidak ada overlap* |
-| External | | |
-| Construct | | |
-| Conclusion | | |
+| Internal | Perubahan jumlah siswa dalam kelas memengaruhi suhu ruangan | Pengujian dilakukan pada jumlah pengguna ruang kelas yang relatif sama |
+| External | Pengujian hanya dilakukan pada satu jenis ruang kelas | Pengujian dilakukan beberapa kali pada kondisi berbeda |
+| Construct | Pembacaan sensor DHT22 dapat mengalami delay atau error | Kalibrasi sensor dan pengambilan data berulang |
+| Conclusion | Jumlah sampel data kurang banyak | Menambah jumlah pengujian dan durasi pengambilan data |
 
-**Ancaman mana yang paling sulit dimitigasi?** _____________
+**Ancaman mana yang paling sulit dimitigasi?** External validity  
 **Mengapa?**
-> ___________________________________________________
+> Karena kondisi setiap ruang kelas berbeda-beda, seperti ukuran ruangan, ventilasi, dan jumlah pengguna ruangan sehingga hasil penelitian belum tentu sama pada semua lingkungan.
 
 ---
 
@@ -155,6 +155,6 @@ Identifikasi ancaman validitas untuk desain eksperimen ini.
 > Sebuah paper melaporkan "metode kami mengalahkan semua baseline." Apa 3 pertanyaan pertama yang harus diajukan untuk mengevaluasi klaim ini?
 
 **Jawaban:**
-1. ___________________________________________________
-2. ___________________________________________________
-3. ___________________________________________________
+1. Apakah semua baseline diuji pada kondisi dan lingkungan yang sama?  
+2. Apakah metrik evaluasi yang digunakan sesuai dan adil untuk semua metode?  
+3. Apakah jumlah data dan pengujian yang dilakukan cukup untuk membuktikan hasil penelitian?  
