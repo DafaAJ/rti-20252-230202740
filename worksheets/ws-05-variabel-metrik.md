@@ -63,23 +63,21 @@ Metrik harus ditentukan **sebelum** eksperimen. Memilih metrik setelah melihat d
 
 ## Template A.5 — Definisi Variabel, Metrik & Justifikasi
 
-```
 VARIABLE & METRIC DEFINITION
 
-Research Question: ____________________
+Research Question: Bagaimana kinerja sistem IoT berbasis ESP32 dan sensor DHT22 dalam menjaga kestabilan suhu ruang kelas berdasarkan metrik kestabilan suhu ruangan dibandingkan penggunaan kipas dan AC konvensional pada objek penelitian berupa ruang kelas?
 
 | Variabel | Tipe | Konsep | Metrik | Skala | Satuan | Cara Mengukur | Justifikasi |
 |----------|------|--------|--------|-------|--------|---------------|-------------|
-|          | IV   |        |        |       |        |               |             |
-|          | DV   |        |        |       |        |               |             |
-|          | CV   |        |        |       |        |               |             |
+| Sistem kontrol suhu berbasis IoT menggunakan ESP32 dan DHT22 | IV | Sistem kontrol suhu otomatis berbasis IoT | Kecepatan respons sistem, akurasi pembacaan sensor, respons otomatis kipas/AC | Ratio dan Interval | Detik dan °C | Sensor DHT22 membaca suhu ruangan secara real-time lalu diproses ESP32 untuk mengaktifkan kipas atau AC otomatis | Digunakan untuk mengetahui kemampuan sistem IoT dalam merespons perubahan suhu ruangan secara otomatis |
+| Kestabilan suhu ruang kelas | DV | Kenyamanan dan kestabilan suhu ruangan | Rata-rata suhu ruangan, perubahan suhu tiap interval waktu, kestabilan suhu | Interval | °C | Suhu ruangan dicatat secara berkala selama proses pembelajaran berlangsung | Digunakan untuk mengetahui apakah sistem mampu menjaga suhu ruang kelas tetap stabil dan nyaman |
+| Kondisi ruang kelas selama pengujian | CV | Faktor lingkungan yang mempengaruhi hasil pengujian | Ukuran ruangan, jumlah pengguna ruangan, posisi sensor, durasi pengujian | Nominal | - | Kondisi ruang kelas dibuat tetap selama eksperimen berlangsung | Digunakan agar hasil pengujian tidak dipengaruhi faktor luar selain sistem IoT |
 
 Alignment Check:
   RQ → Concept → Variable → Metric → Data → Result
-  [ ] Setiap langkah terdokumentasi
-  [ ] Tidak ada "lompatan logis"
-  [ ] Metrik mengukur apa yang dimaksud (construct validity)
-```
+  [✓] Setiap langkah terdokumentasi
+  [✓] Tidak ada "lompatan logis"
+  [✓] Metrik mengukur apa yang dimaksud (construct validity)
 
 ---
 
@@ -87,16 +85,16 @@ Alignment Check:
 
 Gunakan RQ dari WS-04. Definisikan variabel dan metriknya.
 
-**RQ:** __________________________________________________
+**RQ:** Bagaimana kinerja sistem IoT berbasis ESP32 dan sensor DHT22 dalam menjaga kestabilan suhu ruang kelas dibandingkan penggunaan kipas dan AC konvensional?
 
 | Variabel | Tipe | Konsep Abstrak | Metrik Konkret | Skala (NOIR) | Satuan |
 |----------|------|---------------|----------------|-------------|--------|
-| *Contoh: Jenis model* | *IV* | *Pendekatan klasifikasi* | *Categorical: CNN vs RF* | *Nominal* | *—* |
-| | DV | | | | |
-| | CV | | | | |
+| Sistem IoT ESP32 dan DHT22 | IV | Pengendalian suhu otomatis berbasis IoT | Respons otomatis kipas/AC dan akurasi sensor | Nominal dan Interval | °C dan detik |
+| Kestabilan suhu ruang kelas | DV | Kenyamanan suhu ruangan | Rata-rata suhu dan perubahan suhu | Interval | °C |
+| Kondisi ruang kelas | CV | Faktor lingkungan pengujian | Ukuran ruang, posisi sensor, jumlah pengguna | Nominal | - |
 
-**Apakah ada lompatan logis dalam rantai?** [ ] Ya / [ ] Tidak
-> Jika ya, di mana? ____________________________________
+**Apakah ada lompatan logis dalam rantai?** [ ] Ya / [✓] Tidak
+> Jika ya, di mana? Karena seluruh variabel dan metrik masih berhubungan langsung dengan tujuan penelitian yaitu menjaga kestabilan suhu ruang kelas menggunakan sistem IoT.
 
 ---
 
@@ -106,15 +104,15 @@ Evaluasi metrik DV yang dipilih di Latihan 1 menggunakan 3 kriteria.
 
 | Kriteria | Skor (1-5) | Justifikasi |
 |----------|-----------|-------------|
-| Representative | *Contoh: 4 — F1-Score mewakili keseimbangan precision-recall* | |
-| Sensitive | | |
-| Feasible | | |
+| Representative | 5 | Metrik kestabilan suhu secara langsung mewakili tujuan penelitian yaitu menjaga kenyamanan suhu ruang kelas |
+| Sensitive | 4 | Perubahan suhu kecil masih dapat terdeteksi oleh sensor DHT22 sehingga cukup sensitif terhadap perubahan kondisi ruangan |
+| Feasible | 5 | Data suhu dan respons sistem dapat dikumpulkan secara real-time menggunakan ESP32 dan DHT22 dengan biaya rendah |
 
-**Apakah perlu secondary metric?** [ ] Ya / [ ] Tidak
-> Jika ya, apa dan mengapa? _____________________________
+**Apakah perlu secondary metric?** [✓] Ya / [ ] Tidak
+> Jika ya, apa dan mengapa? Karena secondary metric digunakan adalah kelembapan ruangan dan kestabilan pembacaan sensor. Kelembapan digunakan sebagai data pendukung kondisi lingkungan ruang kelas, sedangkan kestabilan sensor digunakan untuk memastikan data suhu tetap konsisten selama pengujian.
 
 **Contoh kasus ceiling effect untuk metrik ini:**
-> ___________________________________________________
+> Jika suhu ruangan sudah stabil pada rentang tertentu dan sensor tidak menunjukkan perubahan signifikan, maka perbedaan performa antar sistem kontrol suhu menjadi sulit terlihat karena seluruh hasil terlihat hampir sama.
 
 ---
 
@@ -124,10 +122,10 @@ Bayangkan data yang akan dikumpulkan dari eksperimen. Evaluasi 4 dimensi kualita
 
 | Dimensi | Pertanyaan | Jawaban | Strategi Mitigasi |
 |---------|-----------|---------|------------------|
-| Completeness | *Apakah semua data point terkumpul?* | | |
-| Consistency | *Apakah ada kontradiksi internal?* | | |
-| Validity | *Apakah benar-benar mengukur yang dimaksud?* | | |
-| Representativeness | *Apakah sampel mewakili populasi target?* | | |
+| Completeness | Apakah semua data point terkumpul? | Sebagian besar data suhu dan respons sistem dapat terkumpul selama pengujian | Melakukan monitoring berkala dan penyimpanan data otomatis |
+| Consistency | Apakah ada kontradiksi internal? | Kemungkinan terdapat perbedaan pembacaan sensor akibat perubahan lingkungan | Melakukan kalibrasi sensor dan pengujian berulang |
+| Validity | Apakah benar-benar mengukur yang dimaksud? | Ya, karena sensor DHT22 digunakan langsung untuk membaca suhu ruang kelas | Membandingkan hasil sensor dengan termometer standar |
+| Representativeness | Apakah sampel mewakili populasi target? | Pengujian dilakukan pada ruang kelas nyata dengan kondisi penggunaan harian | Pengujian dilakukan pada jam pembelajaran normal dan jumlah pengguna yang relatif tetap |
 
 ---
 
@@ -136,5 +134,5 @@ Bayangkan data yang akan dikumpulkan dari eksperimen. Evaluasi 4 dimensi kualita
 > Mengapa memilih metrik setelah melihat data dianggap p-hacking? Apa bedanya dengan eksplorasi data yang sah?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+> Memilih metrik setelah melihat data dianggap p-hacking karena peneliti dapat memilih hasil yang paling menguntungkan sehingga penelitian menjadi tidak objektif. Hal tersebut dapat menyebabkan kesimpulan penelitian menjadi bias dan kurang valid secara ilmiah.
+> Sedangkan eksplorasi data yang sah dilakukan untuk memahami pola data tanpa mengubah hipotesis utama yang telah ditentukan sebelumnya. Metrik tambahan dari eksplorasi tetap boleh dilaporkan, tetapi harus dijelaskan sebagai hasil eksploratif dan bukan sebagai bukti utama penelitian.
