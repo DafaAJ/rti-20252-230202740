@@ -73,32 +73,43 @@ Mengandalkan "install library terbaru" berbahaya: versi berbeda = perilaku berbe
 EXPERIMENT SETUP DOCUMENTATION
 
 Hardware:
-  CPU     : ____________________
-  RAM     : ____________________
-  GPU     : ____________________
-  Storage : ____________________
+  CPU     : AMD Ryzen 3 7320U (4 cores, 8 thread)
+  RAM     : 8 GB LPDDR5
+  GPU     : AMD Radeon 610M 2 GB
+  Storage : SSD 512 GB 
 
 Software:
-  OS        : ____________________
-  Runtime   : ____________________
-  Framework : ____________________
+  OS        : Windows 11 Home Single Language
+  Runtime   : PlatformIO
+  Framework : Arduino Framework
+  Simulator : Wokwi
+  IDE       : Visual Studio Code
+```
 
 Dependencies:
 | Library | Version | Sumber | Hash/Checksum |
 |---------|---------|--------|---------------|
-|         |         |        |               |
-|         |         |        |               |
+| DHT Sensor Library | 1.4.7 | Adafruit | Membaca sensor DHT22 |
+| UniversalTelegramBot | 1.3.0 | Witnessmenow | Komunikasi Telegram |
+| WiFi | ESP32 Core | Arduino ESP32 | Koneksi WiFi |
+| WiFiClientSecure | ESP32 Core | Arduino ESP32 | Koneksi HTTPS Telegram |
+| ArduinoJson | 7.4.3 | ArduinoJson | Pemrosesan data JSON |
 
+```
 Konfigurasi:
-  Config file     : ____________________
-  Random seed     : ____________________
-  Hyperparameters : ____________________
+  Config file     : platformio.ini dan private.ini
+  Random seed     : Tidak digunakan
+  Hyperparameters : 
+    - Suhu maksimum = 30°C
+    - Interval sensor = 2 detik
+    - Interval Telegram = 5 detik
+    - Delay antrian Telegram = 1,5 detik
 
 Reproducibility Check:
-  [ ] Dependency terdokumentasi (requirements.txt / lock file)
+  [✓] Dependency terdokumentasi (requirements.txt / lock file)
   [ ] Seed ditetapkan di semua level (Python, NumPy, framework)
-  [ ] Config di version control
-  [ ] README instruksi reproduksi lengkap
+  [✓] Config di version control
+  [✓] README instruksi reproduksi lengkap
 ```
 
 ---
@@ -109,23 +120,23 @@ Dokumentasikan environment untuk eksperimen Anda (boleh environment saat ini ata
 
 | Komponen | Spesifikasi |
 |----------|------------|
-| CPU | *Contoh: Intel Core i7-12700H, 14 Core* |
-| RAM | *Contoh: 32 GB DDR5* |
-| GPU | *Contoh: NVIDIA RTX 3060 6GB / CPU-only jika tidak ada GPU* |
-| OS | *Contoh: Ubuntu 22.04 LTS / Windows 11* |
-| Runtime | |
-| Framework | |
-| Random Seed | |
+| CPU | AMD Ryzen 3 7320U (4 Core, 8 Thread) |
+| RAM | 8 GB LPDDR5 |
+| GPU | AMD Radeon 610M 2 GB |
+| OS | Windows 11 Home Single Language |
+| Runtime | PlatformIO |
+| Framework | Arduino Framework |
+| Random Seed | Tidak digunakan |
 
 **Dependencies (minimal 5):**
 
 | Library | Version | Alasan Dibutuhkan |
 |---------|---------|-------------------|
-| *Contoh: scikit-learn* | *1.3.2* | *Klasifikasi + evaluasi metrik* |
-| | | |
-| | | |
-| | | |
-| | | |
+| DHT Sensor Library | 1.4.7 | Membaca suhu dan kelembapan |
+| UniversalTelegramBot | 1.3.0 | Monitoring Telegram |
+| WiFi | ESP32 Core | Koneksi internet |
+| WiFiClientSecure | ESP32 Core | HTTPS Telegram API |
+| ArduinoJson | 7.4.3 | Parsing data Telegram |
 
 ---
 
@@ -135,25 +146,29 @@ Rancang tes repeatability sederhana: jalankan kode yang sama 3× di environment 
 
 | Run | Seed | Metrik Utama | Hasil Sama? |
 |-----|------|-------------|-------------|
-| 1 | *Contoh: 42* | *Contoh: Accuracy* | — |
-| 2 | | | [ ] Ya / [ ] Tidak |
-| 3 | | | [ ] Ya / [ ] Tidak |
+| 1 | Tidak digunakan | Status kipas pada suhu 32°C | — |
+| 2 | Tidak digunakan | | [✓] Ya / [ ] Tidak |
+| 3 | Tidak digunakan | Kipas menyala kembali pada suhu 33°C | [✓] Ya / [ ] Tidak |
 
 **Jika hasil berbeda, kemungkinan penyebab:**
 
 > Penyebab umum non-repeatability:
-> - **Thermal throttling** — CPU/GPU overheating pada run berturut-turut → clock speed turun → waktu eksekusi berubah
-> - **Background process** — antivirus scan, update OS, atau cloud sync aktif saat run berlangsung
-> - **Cache dari run sebelumnya** — hasil tersimpan di memori/disk sehingga run berikutnya tidak menjalankan komputasi penuh
-> - **Random state tidak dikontrol di semua level** — Python seed di-set, tapi NumPy/PyTorch/TensorFlow punya seed independen
+> - **Perubahan suhu lingkungan** — kondisi ruangan, cuaca, atau jumlah orang di ruangan berbeda saat pengujian.  
+> - **Koneksi WiFi tidak stabil** — menyebabkan keterlambatan pengiriman notifikasi Telegram.  
+> - **Toleransi sensor DHT22** — sensor memiliki error pengukuran sekitar ±0,5°C.  
+> - **Perbedaan interval pembacaan** — waktu sampling sensor yang berbeda dapat menghasilkan data yang berbeda.  
+> - **Gangguan catu daya atau perangkat** — tegangan tidak stabil dapat memengaruhi pembacaan sensor dan relay.  
 
 ___________________________________________________
 
 **Checklist kontrol yang sudah diterapkan:**
-- [ ] Random seed di-set di semua level
-- [ ] Tidak ada background process yang mengganggu
-- [ ] Cache dibersihkan antar-run
-- [ ] Config file yang sama untuk semua run
+- [✓] Random seed di-set di semua level (tidak diperlukan pada sistem IoT ini)  
+- [✓] Tidak ada background process yang mengganggu  
+- [ ] Cache dibersihkan antar-run (tidak relevan pada ESP32)    
+- [✓] Config file yang sama untuk semua run  
+- [✓] Kode program tidak diubah selama pengujian  
+- [✓] Batas suhu tetap 30°C pada seluruh pengujian  
+- [✓] Environment pengujian dibuat semirip mungkin  
 
 ---
 
@@ -162,25 +177,48 @@ ___________________________________________________
 Tulis README minimum untuk eksperimen Anda (6 komponen wajib).
 
 ```
-# Judul Eksperimen: ____________________
+# Judul Eksperimen: Sistem Monitoring dan Pengendalian Suhu Ruang Kelas Berbasis ESP32, Sensor DHT22, dan Telegram Bot
 
 ## 1. Environment
-> (Salin spesifikasi dari Latihan 1)
+CPU: AMD Ryzen 3 7320U
+RAM: 8 GB
+OS: Windows 11
+Framework: Arduino Framework
+Platform: PlatformIO
+Simulator: Wokwi
 
 ## 2. Installation
-> (Langkah instalasi, misal: "pip install -r requirements.txt")
+1. Install Visual Studio Code.
+2. Install ekstensi PlatformIO.
+3. Clone repository GitHub.
+4. Install seluruh library.
+5. Konfigurasikan private.ini.
 
 ## 3. Data
-> (Deskripsi data: sumber, format, ukuran)
+Data yang dihasilkan berupa:
+- Suhu (°C)
+- Kelembapan (%)
+- Status relay
+- Status kipas
+- Notifikasi Telegram
 
 ## 4. Execution
-> (Command untuk menjalankan eksperimen)
+- Jalankan simulasi Wokwi.
+- Build project menggunakan PlatformIO.
+- Upload program ke ESP32.
+- Buka Serial Monitor.
 
 ## 5. Configuration
-> (File config yang digunakan + parameter kunci)
+- DHT22 pada GPIO 13.
+- Relay pada GPIO 26.
+- Batas suhu 30°C.
+- Interval pembacaan 2 detik.
 
 ## 6. Expected Output
-> (Contoh output yang diharapkan + format)
+- Suhu tampil pada Serial Monitor.
+- Kipas menyala saat suhu ≥ 30°C.
+- Kipas mati saat suhu < 30°C.
+- Telegram menerima notifikasi.
 ```
 
 ---
@@ -189,6 +227,6 @@ Tulis README minimum untuk eksperimen Anda (6 komponen wajib).
 
 > Apakah eksperimen Anda saat ini bisa direproduksi oleh orang lain tanpa bantuan Anda? Komponen apa yang masih hilang?
 
-**Level saat ini:** [ ] Repeatability / [ ] Reproducibility / [ ] Belum keduanya
+**Level saat ini:** [✓] Repeatability / [ ] Reproducibility / [ ] Belum keduanya
 **Komponen yang belum terdokumentasi:**
-> ___________________________________________________
+> Repository GitHub publik, dokumentasi pengujian pada perangkat ESP32 fisik, dan dokumentasi hasil pengujian dalam bentuk tabel atau grafik.
