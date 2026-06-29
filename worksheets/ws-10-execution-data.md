@@ -65,27 +65,60 @@ Run gagal/anomali tidak boleh dihapus tanpa dokumentasi. Bisa jadi:
 
 ## Template A.10 — Execution Plan & Data Log
 
-```
 EXECUTION PLAN
 
 | Run # | Skenario | Seed | Parameter | Status | Waktu | Output File |
 |-------|----------|------|-----------|--------|-------|-------------|
-| 1     |          |      |           |        |       |             |
-| 2     |          |      |           |        |       |             |
-| 3     |          |      |           |        |       |             |
-| ...   |          |      |           |        |       |             |
+| 1 | Suhu tinggi (32°C) | N/A | Batas 30°C | Selesai | 10 menit | run1.xlsx |
+| 2 | Suhu normal (25°C) | N/A | Batas 30°C | Selesai | 10 menit | run2.xlsx |
+| 3 | Suhu tinggi (33°C) | N/A | Batas 30°C | Selesai | 10 menit | run3.xlsx |
+| 4 | Suhu normal (28°C) | N/A | Batas 30°C | Selesai | 10 menit | run4.xlsx |
+| 5 | Suhu tinggi (31°C) | N/A | Batas 30°C | Selesai | 10 menit | run5.xlsx |
 
-Jumlah runs per skenario : ____
-Total runs               : ____
+```
+Jumlah runs per skenario : 5
+Total runs               : 5
 
 DATA LOG (per run):
-  Run ID    : ____________________
-  Timestamp : ____________________
-  Skenario  : ____________________
-  Input     : ____________________
-  Output    : ____________________
-  Anomali   : ____________________
-  Catatan   : ____________________
+  Run ID    : RUN-001  
+  Timestamp : 29-06-2026  
+  Skenario  : Suhu awal 32°C  
+  Input     : DHT22 membaca suhu ruang  
+  Output    : Relay aktif, kipas menyala  
+  Anomali   : Tidak ada  
+  Catatan   : Sistem bekerja normal  
+
+  Run ID    : RUN-002  
+  Timestamp : 29-06-2026  
+  Skenario  : Suhu awal 25°C  
+  Input     : DHT22 membaca suhu ruang normal  
+  Output    : Relay mati, kipas mati  
+  Anomali   : Tidak ada  
+  Catatan   : Sistem bekerja normal  
+
+  Run ID    : RUN-003  
+  Timestamp : 29-06-2026  
+  Skenario  : Suhu awal 33°C  
+  Input     : DHT22 membaca suhu ruang panas 
+  Output    : Relay aktif, kipas menyala  
+  Anomali   : Tidak ada  
+  Catatan   : Sistem bekerja normal  
+
+  Run ID    : RUN-004  
+  Timestamp : 29-06-2026  
+  Skenario  : Suhu awal 28°C  
+  Input     : DHT22 membaca suhu ruang normal  
+  Output    : Relay mati, kipas mati  
+  Anomali   : Tidak ada  
+  Catatan   : Sistem bekerja normal  
+
+  Run ID    : RUN-005  
+  Timestamp : 29-06-2026  
+  Skenario  : Suhu awal 31°C  
+  Input     : DHT22 membaca suhu ruang panas  
+  Output    : Relay aktif, kipas menyala  
+  Anomali   : Tidak ada  
+  Catatan   : Sistem bekerja normal  
 ```
 
 ---
@@ -96,15 +129,15 @@ Susun execution plan untuk eksperimen Anda. Tentukan skenario, jumlah run, dan s
 
 | Run # | Skenario | Seed | Parameter Kunci | Status |
 |-------|----------|------|----------------|--------|
-| *1* | *Contoh: BERT-base, DS-1* | *42* | *lr=2e-5, epoch=10* | *Planned* |
-| *2* | *BERT-base, DS-1* | *123* | *lr=2e-5, epoch=10* | *Planned* |
-| 3 | | | | |
-| 4 | | | | |
-| 5 | | | | |
+| 1 | Suhu tinggi (32°C) | N/A | Batas suhu 30°C | Selesai |
+| 2 | Suhu rendah (25°C) | N/A | Batas suhu 30°C | Selesai |
+| 3 | Suhu tinggi (33°C) | N/A | Batas suhu 30°C | Selesai |
+| 4 | Suhu normal (28°C) | N/A | Batas suhu 30°C | Selesai |
+| 5 | Suhu tinggi (31°C) | N/A | Batas suhu 30°C | Selesai |
 
-**Total skenario:** ____
-**Run per skenario:** ____
-**Total run keseluruhan:** ____
+**Total skenario:** 1
+**Run per skenario:** 5
+**Total run keseluruhan:** 5
 
 ---
 
@@ -115,25 +148,31 @@ Desain format data log untuk eksperimen Anda. Tentukan field apa saja yang akan 
 **Identitas:**
 | Field | Contoh |
 |-------|--------|
-| Run ID | *run-001* |
-| Timestamp | *2025-03-15T10:30:00* |
-| | |
+| Run ID | run-001 |
+| Timestamp | 2026-06-28 09:00 |
+| Skenario | Suhu tinggi |
+| Durasi | 10 menit |
 
 **Konfigurasi:**
 | Field | Contoh |
 |-------|--------|
-| Seed | *42* |
-| Code version | *commit abc1234* |
-| | |
+| Threshold | 30°C |
+| DHT22 GPIO | 13 |
+| Relay GPIO | 26 |
+| Framework | Arduino |
+| Platform | PlatformIO |
+| Code Version | main.cpp v1.0 |
 
 **Hasil:**
 | Metrik | Tipe Data | Range Valid |
 |--------|----------|-------------|
-| *Contoh: Accuracy* | *float* | *0.0 – 1.0* |
-| | | |
-| | | |
+| Suhu | Float | 0–80°C |
+| Kelembapan | Float | 0–100% |
+| Status Relay | Boolean | ON/OFF |
+| Notifikasi Telegram | Boolean | Berhasil/Gagal |
+| Waktu Respon | Integer | Detik |
 
-**Format output:** [ ] CSV / [ ] JSON / [ ] Database / [ ] Lainnya: ____
+**Format output:** [✓] CSV / [ ] JSON / [ ] Database / [ ] Lainnya: ____
 
 ---
 
@@ -143,10 +182,10 @@ Rencanakan bagaimana menangani anomali. Untuk setiap jenis, tentukan langkah yan
 
 | Jenis Anomali | Contoh | Tindakan |
 |---------------|--------|----------|
-| Run gagal (crash) | *Contoh: OOM pada batch_size=64* | *Contoh: Dokumentasi, re-run batch_size=32, catat perubahan* |
-| Hasil ekstrem | | |
-| Waktu eksekusi anomali | | |
-| Inkonsistensi dengan run lain | | |
+| Sensor gagal membaca | Nilai NaN | Membaca ulang sensor |
+| WiFi terputus | Telegram gagal | Reconnect WiFi |
+| Data ekstrem | Suhu > 80°C | Catat dan abaikan data |
+| Waktu respon lambat | Delay tinggi | Ulang pengujian |
 
 **Prinsip:** Detect → Investigate → Document → Decide
 
@@ -157,6 +196,6 @@ Rencanakan bagaimana menangani anomali. Untuk setiap jenis, tentukan langkah yan
 > Pernahkah Anda melaporkan hasil riset/tugas dari single run? Apa risikonya? Bagaimana multiple run mengubah kepercayaan terhadap hasil?
 
 **Pengalaman sebelumnya:**
-> ___________________________________________________
+> Sebelumnya pengujian sistem hanya dilakukan satu kali sehingga hasil yang diperoleh belum dapat menunjukkan konsistensi sistem secara menyeluruh.  
 **Yang akan dilakukan berbeda:**
-> ___________________________________________________
+> Penelitian ini menggunakan multiple run untuk mengetahui kestabilan sistem. Pengujian berulang meningkatkan kepercayaan terhadap hasil karena sistem diuji pada berbagai kondisi suhu.
