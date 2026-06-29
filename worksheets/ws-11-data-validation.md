@@ -66,28 +66,28 @@ Jika gagal di langkah awal → tidak perlu lanjut.
 DATA VALIDATION CHECKLIST
 
 Completeness:
-  [ ] Semua skenario tercakup
-  [ ] Jumlah run sesuai rencana
-  [ ] Tidak ada file output hilang
-  Missing: ____ dari ____ data points
+  [✓] Semua skenario tercakup
+  [✓] Jumlah run sesuai rencana
+  [✓] Tidak ada file output hilang
+  Missing: 0 dari 5 data points
 
 Format Consistency:
-  [ ] Semua file format sama (CSV/JSON/...)
-  [ ] Header konsisten
-  [ ] Tipe data konsisten (numerik tetap numerik)
+  [✓] Semua file format sama (CSV/Excel)
+  [✓] Header konsisten
+  [✓] Tipe data konsisten (numerik tetap numerik)
 
 Range & Logic:
-  [ ] Nilai dalam range masuk akal
-  [ ] Tidak ada waktu negatif
-  [ ] Metrik 0–100%, tidak di luar range
-  Anomali ditemukan: ____________________
+  [✓] Nilai dalam range masuk akal
+  [✓] Tidak ada waktu negatif
+  [✓] Metrik 0–100%, tidak di luar range
+  Anomali ditemukan: keterlambatan notifikasi Telegram
 
 Cross-Validation:
-  [ ] Run identik → hasil mendekati
-  [ ] Trend konsisten dengan ekspektasi teori
+  [✓] Run identik → hasil mendekati
+  [✓] Trend konsisten dengan ekspektasi teori
 
 Keputusan:
-  [ ] Data siap analisis
+  [✓] Data siap analisis
   [ ] Perlu cleaning
   [ ] Perlu re-run (skenario: ____)
 ```
@@ -100,12 +100,11 @@ Verifikasi apakah semua data yang direncanakan sudah terkumpul.
 
 | Skenario | Run Direncanakan | Run Tercatat | Missing | Alasan |
 |----------|-----------------|-------------|---------|--------|
-| *Contoh: BERT, DS-1* | *10* | *10* | *0* | *—* |
-| *LSTM, DS-3* | *10* | *8* | *2* | *OOM pada run 7 & 9* |
-| | | | | |
-| | | | | |
+| Suhu di atas 30°C (kipas ON) | 3 | 3 | 0 | — |
+| Suhu di bawah 30°C (kipas OFF) | 2 | 2 | 0 | — |
+| Pengiriman notifikasi Telegram | 5 | 5 | 0 | — | 
 
-**Total expected:** ____ | **Total actual:** ____ | **Missing:** ____
+**Total expected:** 5 | **Total actual:** 5| **Missing:** 0
 
 **Keputusan untuk data missing:**
 > ___________________________________________________
@@ -120,23 +119,23 @@ Periksa data Anda untuk anomali. Gunakan metode IQR atau z-score.
 
 | Run | Accuracy (%) |
 |-----|-------------|
-| 1 | *91.2* |
-| 2 | *90.8* |
-| 3 | *91.5* |
-| 4 | *78.3* |
-| 5 | *91.0* |
+| 1 | 32 |
+| 2 | 25 |
+| 3 | 33 |
+| 4 | 28 |
+| 5 | 31 |
 
 **Deteksi outlier:**
-- Q1 = ____ | Q3 = ____ | IQR = ____
-- Batas bawah (Q1 - 1.5×IQR) = ____
-- Batas atas (Q3 + 1.5×IQR) = ____
-- Outlier terdeteksi: ____
+- Q1 = 28 | Q3 = 32 | IQR = 4  
+- Batas bawah (Q1 - 1.5×IQR) = 28 − (1.5 × 4) = 22  
+- Batas atas (Q3 + 1.5×IQR) = 32 + (1.5 × 4) = 38  
+- Outlier terdeteksi: Tidak ada
 
 **Investigasi (untuk setiap outlier):**
 
 | Outlier | Nilai | Kemungkinan Penyebab | Keputusan |
 |---------|-------|---------------------|-----------|
-| *Run 4* | *78.3* | *Contoh: thermal throttling setelah 3 run berturut* | *Re-run dengan cooling interval* |
+| Keterlambatan Telegram | Notifikasi terlambat beberapa detik | Koneksi internet atau respons server Telegram | Data tetap digunakan |
 
 ---
 
@@ -144,12 +143,12 @@ Periksa data Anda untuk anomali. Gunakan metode IQR atau z-score.
 
 Buat laporan validasi ringkas untuk dataset eksperimen Anda.
 
-**1. Completeness:** ____% data terkumpul
-**2. Format:** [ ] Konsisten / [ ] Ada inkonsistensi: ____
-**3. Range check (anomali):** ____
-**4. Logic check:** [ ] Parameter sesuai plan / [ ] Ada ketidaksesuaian: ____
+**1. Completeness:** 100% data terkumpul  
+**2. Format:** [✓] Konsisten / [ ] Ada inkonsistensi: ____  
+**3. Range check (anomali):** Tidak ditemukan data di luar batas logis.  
+**4. Logic check:** [✓] Parameter sesuai plan / [ ] Ada ketidaksesuaian: ____  
 
-**Kesimpulan:** [ ] Data siap analisis / [ ] Perlu tindakan: ____
+**Kesimpulan:** [✓] Data siap analisis / [ ] Perlu tindakan: ____
 
 ---
 
@@ -157,5 +156,5 @@ Buat laporan validasi ringkas untuk dataset eksperimen Anda.
 
 > Apa perbedaan antara "data yang benar" dan "data yang dipercaya"? Mengapa proses validasi formal diperlukan meskipun data dikumpulkan secara otomatis?
 
-> ___________________________________________________
-> ___________________________________________________
+> Data yang benar belum tentu merupakan data yang dipercaya. Data yang dipercaya adalah data yang telah melalui proses validasi sehingga dapat dipastikan sesuai dengan kondisi sebenarnya. Walaupun data dikumpulkan secara otomatis menggunakan sensor dan sistem IoT, kesalahan pengukuran, keterlambatan komunikasi, atau kegagalan pencatatan masih dapat terjadi.
+> Proses validasi formal diperlukan agar data yang digunakan dalam penelitian memiliki integritas yang baik dan dapat dipertanggungjawabkan secara ilmiah. Dengan melakukan validasi, peneliti dapat memastikan bahwa data layak digunakan untuk analisis dan penarikan kesimpulan.
