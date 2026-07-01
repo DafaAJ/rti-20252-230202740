@@ -65,25 +65,30 @@ Keduanya **saling melengkapi**:
 ```
 RESULT PRESENTATION PLAN
 
-Research Question : ____________________
-Metrik Utama      : ____________________
+Research Question : Bagaimana kinerja sistem monitoring dan pengendalian suhu ruang kelas berbasis ESP32, sensor DHT22, relay, dan Telegram Bot dalam memonitor suhu serta mengendalikan kipas secara otomatis?  
+Metrik Utama      : 
+  1. Suhu (°C)  
+  2. Kelembapan (%)  
+  3. Status Kipas (ON/OFF)
+```
 
 Tabel Hasil:
 | Skenario | Metrik 1 (mean ± std) | Metrik 2 (mean ± std) | n |
 |----------|----------------------|----------------------|---|
-|          |                      |                      |   |
+| Sistem Monitoring ESP32 + DHT22 + Telegram Bot | 29,8 ± 3,19 | 50,8 ± 1,30 | 5 |
 
 Visualisasi yang Direncanakan:
 | # | Jenis Grafik | Pesan Utama | Metrik |
 |---|-------------|-------------|--------|
-| 1 |             |             |        |
-| 2 |             |             |        |
+| 1 | Line Chart | Menampilkan perubahan suhu pada setiap run eksperimen | Suhu |
+| 2 | Bar Chart | Menampilkan status kipas berdasarkan suhu yang terbaca | Status Kipas (ON/OFF) |
 
+```
 Bias Check:
-  [ ] Y-axis mulai dari 0 (atau dijustifikasi)
-  [ ] Error bar/CI ditampilkan
-  [ ] Semua data disertakan (tidak cherry-picked)
-  [ ] Tidak menggunakan 3D tanpa alasan
+  [✓] Y-axis mulai dari 0 (atau dijustifikasi)
+  [✓] Error bar/CI ditampilkan
+  [✓] Semua data disertakan (tidak cherry-picked)
+  [✓] Tidak menggunakan 3D tanpa alasan
 ```
 
 ---
@@ -94,15 +99,13 @@ Buat tabel hasil eksperimen Anda (boleh dengan data simulasi jika belum punya da
 
 | Skenario | Metrik 1 (mean ± std) | Metrik 2 (mean ± std) | n |
 |----------|----------------------|----------------------|---|
-| *Contoh: BERT-base* | *88.4 ± 1.2%* | *45.2 ± 3.1 min* | *10* |
-| | | | |
-| | | | |
+| Sistem Monitoring ESP32, DHT22, Relay dan Telegram Bot | 29,8 ± 3,19 | 50,8 ± 1,30 | 5 |  
 
 **Checklist tabel:**
-- [ ] Self-contained (judul jelas, satuan ada, N tercantum)
-- [ ] Mean ± std (bukan single number)
-- [ ] Diurutkan berdasarkan metrik utama
-- [ ] Format konsisten di semua baris
+- [✓] Self-contained (judul jelas, satuan ada, N tercantum)
+- [✓] Mean ± std (bukan single number)
+- [✓] Diurutkan berdasarkan metrik utama
+- [✓] Format konsisten di semua baris
 
 ---
 
@@ -112,9 +115,9 @@ Rencanakan 2-3 grafik untuk menyajikan data dari Latihan 1. Setiap grafik = satu
 
 | # | Jenis Grafik | Pesan | Data yang Digunakan |
 |---|-------------|-------|---------------------|
-| 1 | *Contoh: Bar chart + error bar* | *Perbandingan accuracy antar 3 model* | *Mean accuracy ± std* |
-| 2 | *Box plot* | *Distribusi F1 per model* | *Semua run F1* |
-| 3 | *Scatter plot* | *Trade-off accuracy vs training time* | *Mean accuracy vs mean time* |
+| 1 | Line Chart | Menampilkan perubahan suhu pada setiap run eksperimen | Data suhu 5 run |
+| 2 | Bar Chart | Menampilkan kondisi kipas berdasarkan suhu | Status Kipas ON/OFF |
+| 3 | Bar Chart + Error Bar | Menampilkan rata-rata suhu beserta variasinya | Mean Suhu ± Std |
 
 ---
 
@@ -126,20 +129,20 @@ Evaluasi visualisasi berikut untuk bias (skenario dari contoh):
 
 | Pertanyaan | Jawaban |
 |-----------|---------|
-| Apakah Y-axis menyesatkan? | *Contoh: Ya — A terlihat 2× B padahal beda 0.4%* |
-| Apakah error bar ditampilkan? | |
-| Apakah semua kondisi ditampilkan? | |
-| Apa solusinya? | |
+| Apakah Y-axis menyesatkan? | Tidak. Sumbu Y menggunakan skala yang sesuai sehingga tidak memperbesar perbedaan antar data. |
+| Apakah error bar ditampilkan? | Ya. Error bar menggunakan standar deviasi untuk menunjukkan variasi hasil pengukuran. |
+| Apakah semua kondisi ditampilkan? | Ya. Seluruh hasil dari lima kali pengujian digunakan tanpa menghilangkan data tertentu. |
+| Apa solusinya? | Menggunakan skala sumbu yang konsisten, menampilkan seluruh data, serta menambahkan error bar agar variasi data terlihat secara objektif. |
 
 **Evaluasi grafik Anda sendiri dari Latihan 2:**
-- [ ] Semua bias check lulus
-- [ ] Ada yang perlu diperbaiki: ____
-
+- [✓] Semua bias check lulus
+- [ ] Ada yang perlu diperbaiki: Tidak ada
 ---
 
 ## Refleksi
 
 > Mengapa tabel dan grafik keduanya diperlukan — tidak cukup salah satu saja? Pernahkah Anda membuat grafik yang (tanpa sengaja) menyesatkan?
 
-> ___________________________________________________
-> ___________________________________________________
+> Tabel dan grafik memiliki fungsi yang saling melengkapi dalam penyajian hasil penelitian. Tabel menyajikan data secara rinci dan presisi sehingga setiap nilai dapat diketahui dengan jelas, sedangkan grafik membantu memperlihatkan pola, tren, dan hubungan antar data sehingga hasil penelitian lebih mudah dipahami. Dengan adanya kedua bentuk penyajian tersebut, pembaca dapat melihat data secara numerik maupun visual.  
+
+> Selama penelitian ini saya belum pernah dengan sengaja membuat grafik yang menyesatkan. Namun saya memahami bahwa penggunaan skala sumbu yang tidak tepat, penghilangan sebagian data, atau tidak menampilkan variasi data dapat menyebabkan kesimpulan yang keliru. Oleh karena itu, seluruh data hasil eksperimen ditampilkan secara lengkap, menggunakan skala yang konsisten, serta dilengkapi nilai rata-rata (mean) dan standar deviasi (standard deviation) agar hasil penelitian lebih objektif, transparan, dan dapat dipertanggungjawabkan secara ilmiah.
